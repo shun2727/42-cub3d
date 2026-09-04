@@ -1,7 +1,23 @@
 #include <stdlib.h>
 
+//temp
+#include <stdio.h>
+
+#include "Libft/libft.h"
+//for files 
+#include <fcntl.h>
+
 int main(int argc, char **argv)
 {
+	int filenum;
+	char **path;
+	ft_putchar_fd('a', 1);
+	//filenum = open(path, O_RDONLY);
+	// if (!ft_strnstr(".cub\0", argv[1], 5)) 
+	// 	printf("Error\n");
+	// else 
+	// 	printf("ok\n");
+
 	/*
 	1. open the file 
 		- handle open file error 
@@ -20,7 +36,5 @@ int main(int argc, char **argv)
 		- if the paths to the texture and the colors to the F and C are invalid, print an error message
 	3. Pass the map to execution
 		- how does execution read or use the map ?
-
-		
 	*/
 }
