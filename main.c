@@ -1,16 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/06 19:00:13 by syee              #+#    #+#             */
+/*   Updated: 2026/09/06 20:37:14 by syee             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 int main(int argc, char **argv)
 {
 	int filenum;
 	char **path;
-	ft_putchar_fd('a', 1);
+	
+	printf("%s\n", argv[1]);
 	//filenum = open(path, O_RDONLY);
-	// if (!ft_strnstr(".cub\0", argv[1], 5)) 
-	// 	printf("Error\n");
-	// else 
-	// 	printf("ok\n");
-
 	/*
 	1. open the file 
 		- handle open file error 

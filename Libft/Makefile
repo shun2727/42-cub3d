@@ -28,7 +28,7 @@ NAME = libft.a
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $@ $^
+	@ar rcs $@ $^
 
 %.o: %.c $(HEADER)
 	@cc $(CFLAGS) $(INC) -c $< -o $@ 
@@ -37,10 +37,12 @@ bonus: $(OBJ) $(OBJ_BONUS)
 	@ar rcs $(NAME) $^
 
 clean:
-	rm -f $(OBJ) $(OBJ_BONUS)
+	@rm -f $(OBJ) $(OBJ_BONUS)
+	@echo "Cleaning LIBFT object files.... \n"
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	
 
 re: fclean all
 

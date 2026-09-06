@@ -1,10 +1,10 @@
 CFLAGS = #-Wall -Werror -Wextra
 CC = gcc 
-INC = -I ./includes
+INC = -I ./includes -I ./Libft
 LIBFT = Libft/libft.a
 
 $(LIBFT):
-	$(MAKE) -C Libft
+	@$(MAKE) -C Libft
 
 #all the files to include here 
 SRC = main.c
@@ -23,8 +23,8 @@ $(NAME) : $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(INC) -c $^ -o $@
 
 clean: 
-	rm -f $(OBJ)
-	$(MAKE) -C Libft clean
+	@rm -f $(OBJ)
+	@$(MAKE) -C Libft clean
 
 fclean: clean
 	rm -f $(NAME)
