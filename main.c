@@ -1,7 +1,24 @@
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/06 19:00:13 by syee              #+#    #+#             */
+/*   Updated: 2026/09/06 20:37:14 by syee             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3D.h"
 
 int main(int argc, char **argv)
 {
+	int filenum;
+	char **path;
+	
+	printf("%s\n", argv[1]);
+	//filenum = open(path, O_RDONLY);
 	/*
 	1. open the file 
 		- handle open file error 
@@ -20,7 +37,5 @@ int main(int argc, char **argv)
 		- if the paths to the texture and the colors to the F and C are invalid, print an error message
 	3. Pass the map to execution
 		- how does execution read or use the map ?
-
-		
 	*/
 }
