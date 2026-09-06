@@ -1,11 +1,4 @@
-#include <stdlib.h>
-
-//temp
-#include <stdio.h>
-
-#include "Libft/libft.h"
-//for files 
-#include <fcntl.h>
+#include "cub3D.h"
 
 int main(int argc, char **argv)
 {

@@ -15,7 +15,7 @@ ft_printf_helper/ft_putchar_fd.c ft_printf_helper/ft_putnbr_fd.c \
 ft_printf_helper/ft_putstr_fd.c ft_printf_helper/ft_putnbr_hex.c \
 ft_printf_helper/ft_putptr.c \
 get_next_line.c \
-get_next_line_helper/get_next_line_utils.c \
+get_next_line_helper/get_next_line_utils.c 
 
 BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
@@ -31,10 +31,10 @@ $(NAME): $(OBJ)
 	ar rcs $@ $^
 
 %.o: %.c $(HEADER)
-	cc $(CFLAGS) $(INC) -c $< -o $@ 
+	@cc $(CFLAGS) $(INC) -c $< -o $@ 
 
 bonus: $(OBJ) $(OBJ_BONUS)
-	ar rcs $(NAME) $^
+	@ar rcs $(NAME) $^
 
 clean:
 	rm -f $(OBJ) $(OBJ_BONUS)
