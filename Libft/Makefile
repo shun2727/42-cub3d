@@ -1,7 +1,7 @@
 CFLAGS = -Wall -Werror -Wextra
-INC = -I. -Ift_printf_helper -Iget_next_line_helper
+INC = -I. -I./ft_printf_helper
 
-HEADER = libft.h ft_printf_helper/ft_printf.h get_next_line_helper/get_next_line.h
+HEADER = libft.h ft_printf_helper/ft_printf.h get_next_line.h
 
 SRC =  ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 ft_isascii.c ft_isdigit.c ft_isprint.c ft_memchr.c ft_memcmp.c \
@@ -15,13 +15,9 @@ ft_printf_helper/ft_putchar_fd.c ft_printf_helper/ft_putnbr_fd.c \
 ft_printf_helper/ft_putstr_fd.c ft_printf_helper/ft_putnbr_hex.c \
 ft_printf_helper/ft_putptr.c \
 get_next_line.c \
-get_next_line_helper/get_next_line_utils.c 
-
-BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
-ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
+get_next_line_utils.c 
 
 OBJ = $(SRC:.c=.o)
-OBJ_BONUS = $(BONUS:.c=.o)
 
 NAME = libft.a
 
@@ -33,9 +29,6 @@ $(NAME): $(OBJ)
 %.o: %.c $(HEADER)
 	@cc $(CFLAGS) $(INC) -c $< -o $@ 
 
-bonus: $(OBJ) $(OBJ_BONUS)
-	@ar rcs $(NAME) $^
-
 clean:
 	@rm -f $(OBJ) $(OBJ_BONUS)
 	@echo "Cleaning LIBFT object files.... \n"
@@ -43,8 +36,7 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	
-
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re 
 

@@ -6,13 +6,14 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 19:01:04 by syee              #+#    #+#             */
-/*   Updated: 2026/09/06 20:52:23 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/08 01:02:52 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "libft.h"
 #include <string.h>
 #include <stdio.h>
+#include "cub3D.h"
 /*
 checks for needle in reverse created for cub3D for ".cub" only
 exits as soon as it doesnt match
@@ -50,9 +51,13 @@ char *ft_rstrstr(char *needle, char *haystack, int needlen)
 
 int main(int argc, char **argv)
 {
-	if (charcount('.', "argv[1]") > 0 || !(ft_rstrstr(".cub", argv[1], 4)))
-	{
-		//return error	
-	}
+	t_texture texture;
 	
+	texture = (t_texture){0};
+
+	if (argc != 2 || charcount('.', "argv[1]") > 0 || !(ft_rstrstr(".cub", argv[1], 4)))
+		return (perror("Invalid file type\n"), 1);//return error	
+	read_file(argv[1], &texture);
+	
+	return (0);
 }

@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 01:47:47 by syee              #+#    #+#             */
-/*   Updated: 2025/06/20 20:21:07 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/07 21:48:05 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 
 char	*get_str(char *staticbuffer)
 {
@@ -21,7 +22,7 @@ char	*get_str(char *staticbuffer)
 	newline_ptr = ft_strchr(staticbuffer, '\n');
 	if (newline_ptr == NULL)
 	{
-		returnstr = ft_strdup(staticbuffer);
+		returnstr = gnl_strdup(staticbuffer);
 		if (!returnstr)
 			return (NULL);
 		return (returnstr);
@@ -30,7 +31,7 @@ char	*get_str(char *staticbuffer)
 	returnstr = (char *)malloc(len + 1);
 	if (!returnstr)
 		return (NULL);
-	ft_memcpy(returnstr, staticbuffer, len);
+	gnl_memcpy(returnstr, staticbuffer, len);
 	returnstr[len] = '\0';
 	return (returnstr);
 }
@@ -51,7 +52,7 @@ void	read_into_buffer(int fd, char **staticbuffer)
 		if (read_size <= 0)
 			break ;
 		buffer[read_size] = '\0';
-		*staticbuffer = ft_strjoin(*staticbuffer, buffer);
+		*staticbuffer = gnl_strjoin(*staticbuffer, buffer);
 		if (ft_strchr(*staticbuffer, '\n'))
 			break ;
 	}
@@ -70,7 +71,7 @@ void	update_staticbuffer(char **staticbuffer)
 		*staticbuffer = NULL;
 		return ;
 	}
-	temp = ft_strdup(newline_ptr + 1);
+	temp = gnl_strdup(newline_ptr + 1);
 	free(*staticbuffer);
 	*staticbuffer = temp;
 }
@@ -89,19 +90,3 @@ char	*get_next_line(int fd)
 	update_staticbuffer(&staticbuffer[fd]);
 	return (returnstr);
 }
-
-// int main(void)
-// {
-// 	char *output;
-// 	int fd;
-// 	fd = open("test.txt",O_RDONLY);
-// 	output = get_next_line(fd);
-// 	//printf("read line : %s ",output);
-// 	while (output)
-// 	{
-// 		printf("main read line : %s",output);
-// 		free(output);
-// 		output = get_next_line(fd);
-// 	}
-// 	return(0);
-// }

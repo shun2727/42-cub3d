@@ -1,15 +1,28 @@
 #ifndef	CUB3D_H
 #define CUB3D_H
 
+#include "libft.h"
+#include "get_next_line.h"
 #include <stdlib.h>
+#include <stdio.h>//temp
+#include <fcntl.h>//for files 
 
-//temp
-#include <stdio.h>
+typedef struct s_texture
+{
+	char *no;
+	char *so;
+	char *we;
+	char *ea;
+	char *f;
+	char *c;
+	
+} t_texture;
 
-#include "Libft/libft.h"
+//check_file
+int charcount(char needle, char *haystack);
+char *ft_rstrstr(char *needle, char *haystack, int needlen);
 
-//for files 
-#include <fcntl.h>
-
+//read_file
+char *read_file(char *file, t_texture *texture);
 
 #endif

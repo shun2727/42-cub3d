@@ -1,44 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 23:29:44 by syee              #+#    #+#             */
-/*   Updated: 2025/06/20 20:23:53 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/07 21:50:34 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strlen(char *s)
+size_t	ft_strlen(const char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (s[i])
+	while (str[i])
 		i++;
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	char	*returnpoint;
-
-	returnpoint = (char *)s;
-	while (*returnpoint)
-	{
-		if (*returnpoint == (char)c)
-			return (returnpoint);
-		returnpoint++;
-	}
-	if (c == '\0')
-		return (returnpoint);
-	return (NULL);
-}
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*gnl_memcpy(void *dest, const void *src, size_t n)
 {
 	unsigned char	*tempsrc;
 	unsigned char	*tempdest;
@@ -52,7 +36,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-char	*ft_strdup(const char *src)
+char	*gnl_strdup(const char *src)
 {
 	size_t	i;
 	char	*dest;
@@ -74,7 +58,7 @@ char	*ft_strdup(const char *src)
 //if static buffer is empty, n theres stuff in buffer means that its first loop
 //wanted to free the given values, after joining them 
 
-char	*ft_strjoin(char *staticbuffer, char *buffer)
+char	*gnl_strjoin(char *staticbuffer, char *buffer)
 {
 	char	*newstr;
 	int		len_staticbuf;
@@ -83,7 +67,7 @@ char	*ft_strjoin(char *staticbuffer, char *buffer)
 	len_buffer = ft_strlen(buffer);
 	if (!staticbuffer && *buffer)
 	{
-		newstr = ft_strdup(buffer);
+		newstr = gnl_strdup(buffer);
 		return (newstr);
 	}
 	len_staticbuf = ft_strlen(staticbuffer);
@@ -93,8 +77,8 @@ char	*ft_strjoin(char *staticbuffer, char *buffer)
 		free(buffer);
 		return (NULL);
 	}
-	ft_memcpy (newstr, staticbuffer, len_staticbuf);
-	ft_memcpy (newstr + len_staticbuf, buffer, len_buffer);
+	gnl_memcpy (newstr, staticbuffer, len_staticbuf);
+	gnl_memcpy (newstr + len_staticbuf, buffer, len_buffer);
 	free (staticbuffer);
 	newstr[len_staticbuf + len_buffer] = '\0';
 	return (newstr);

@@ -7,7 +7,7 @@ $(LIBFT):
 	@$(MAKE) -C Libft
 
 #all the files to include here 
-SRC = main.c
+SRC = main.c check_file.c read_file.c
 
 #Take whatever is inside SRC, and change .c to .o.
 OBJ = $(SRC:.c=.o)
