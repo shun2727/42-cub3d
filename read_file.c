@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 19:27:24 by syee              #+#    #+#             */
-/*   Updated: 2026/09/08 01:18:24 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/08 13:22:06 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ void *validate_texture(t_texture *texture)
 	//can file be converted to xpm 
 	//can file be displayed in mlx window
 	
-	//check if null
-	
+	//check if .xpm
+
+	//check if can open
 	texture_fd = open(texture->no, O_RDONLY);
 	if (texture_fd == -1)
 	{

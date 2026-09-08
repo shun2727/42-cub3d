@@ -3,10 +3,13 @@
 
 #include "libft.h"
 #include "get_next_line.h"
+#include <mlx.h>
+
 #include <stdlib.h>
 #include <stdio.h>//temp
 #include <fcntl.h>//for files 
 
+//only .xpm files are allowed but not sure what size to use
 typedef struct s_texture
 {
 	char *no;
@@ -16,7 +19,14 @@ typedef struct s_texture
 	char *f;
 	char *c;
 	
-} t_texture;
+}	t_texture;
+
+typedef struct s_window
+{
+	void	*mlx;
+	void	*mlx_win;
+
+}	t_window;
 
 //check_file
 int charcount(char needle, char *haystack);
