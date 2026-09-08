@@ -1,5 +1,6 @@
 CFLAGS = -Wall -Werror -Wextra
 INC = -I. -I./ft_printf_helper
+CC = gcc
 
 HEADER = libft.h ft_printf_helper/ft_printf.h get_next_line.h
 
@@ -27,7 +28,7 @@ $(NAME): $(OBJ)
 	@ar rcs $@ $^
 
 %.o: %.c $(HEADER)
-	@cc $(CFLAGS) $(INC) -c $< -o $@ 
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@ 
 
 clean:
 	@rm -f $(OBJ) $(OBJ_BONUS)

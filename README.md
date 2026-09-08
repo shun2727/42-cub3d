@@ -39,3 +39,4 @@ bytesread = read(fd, buffer, buffsize);
 write()
 
 convert those to the walls
+need to do an additional checking for the walls if they were initialized more than once

@@ -1,8 +1,8 @@
 CFLAGS = #-Wall -Werror -Wextra
-CC = gcc 
+CC = gcc
 LIB = -lXext -lX11 -lm -lbsd
 
-INC = -I ./includes -I ./Libft -I ./minilibx-linux
+INC = -I ./includes -I ./Libft -I ./minilibx-linux 
 LIBFT = Libft/libft.a
 MINILIBX = minilibx-linux/libmlx.a
 
@@ -13,7 +13,7 @@ $(MINILIBX):
 	@$(MAKE) -C minilibx-linux
 
 #all the files to include here 
-SRC = main.c check_file.c read_file.c
+SRC = main.c check_file.c read_file.c mlx_handlers.c
 
 #Take whatever is inside SRC, and change .c to .o.
 OBJ = $(SRC:.c=.o)
