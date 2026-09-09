@@ -23,7 +23,6 @@ typedef enum e_texture_enum
 
 } t_texture_enum;
 
-
 typedef struct s_texture
 {
 	int		floor[3];

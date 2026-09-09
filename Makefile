@@ -2,7 +2,7 @@ CFLAGS = #-Wall -Werror -Wextra
 CC = gcc
 LIB = -lXext -lX11 -lm -lbsd
 
-INC = -I ./includes -I ./Libft -I ./minilibx-linux -I ./ft_printf_helper
+INC = -I ./includes -I ./Libft -I ./minilibx-linux -I ./Libft/ft_printf
 LIBFT = Libft/libft.a
 MINILIBX = minilibx-linux/libmlx.a
 

@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 19:27:24 by syee              #+#    #+#             */
-/*   Updated: 2026/09/09 12:09:48 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/09 18:56:41 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,33 +49,36 @@ void	init_texture_compare(char **texture_compare)
 
 int	feed_texture(char *str, t_texture *texture, char **texture_compare)
 {
-	t_texture_enum	texture_enum;
-	int				i;
+	int	i;
 
-	while (i < 7)
+	i = 0;
+	while (i < 6)
 	{
 		if (i < 4 && (ft_strnstr(str, texture_compare[i], 3)))
 		{
 			if (texture->wall_textures[i])
-				return (ft_printf("Dupilcated texture"), 1); //add a clean all funciton
+				return (ft_printf("Error: Dupilcated texture %s\n", texture_compare[i]), -1);
 			else
-				texture->wall_textures[i]= ft_strdup_nl(str + 3);
+				texture->wall_textures[i] = ft_strdup_nl(str + 3);
+			return (10);
 		}
 		else if (i > 3 && (ft_strnstr(str, texture_compare[i], 2)))
 		{
-			if (texture->wall_textures[i])
-				return (ft_printf("Dupilcated texture"), 1); //add a clean all funciton
+			if (texture->floor_ceiling[i - 4])
+				return (ft_printf("Error: Dupilcated texture %s\n", texture_compare[i]), -1);
 			else
-				texture->wall_textures[i - 4] = ft_strdup_nl(str + 3);
+				texture->floor_ceiling[i - 4] = ft_strdup_nl(str + 2);
+			return (10);
 		}
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 char *read_file(char *file, t_texture *texture)
 {
 	int		file_fd;
+	int		texture_count;
 	char	*texture_compare[7];
 	char	*str;
 	char	*pointer;
@@ -85,17 +88,27 @@ char *read_file(char *file, t_texture *texture)
 		return (print_err("Unable to open file\n"), NULL); //nothing has been initialized so can just quit
 	
 	init_texture_compare(texture_compare);
+	texture_count = 1;
+	
 	str = get_next_line(file_fd);
 	while (str != NULL)
 	{
-		if (feed_texture(str, texture, texture_compare) != 0)
+		texture_count = texture_count * feed_texture(str, texture, texture_compare);
+		if (texture_count < 1)
 		{
-			printf("Texture compare error\n");
 			//free(str);
-			//free_all(struct only) & exit
+			//call cleanup
 		}
+		
+		if (texture_count != 1000000)
+		{
+			ft_printf("Error: incomplete textures\n");
+			//call cleanup
+		}
+		
 		//validate_texture
 		//feed_map		
+		printf("texture count : %d\n", texture_count);
 		free(str);
 		str = get_next_line(file_fd);
 	}
@@ -104,19 +117,29 @@ char *read_file(char *file, t_texture *texture)
 	return(NULL);
 }
 
-
-
-/*
-declare a str arr and store it inside, do while if true, get the array index and assign it to the array inside the struct
-, if the array is already assigned then quit saying its duplicate 
-*/
-
-
-
 //need to use mlx here 
-void *validate_texture(t_texture *texture)
+void	*validate_texture(t_texture *texture)
 {
-	int texture_fd;
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		//check .xpm
+		if (!ft_rstrstr(".xpm", texture->wall_textures[i], 4))
+			return(ft_printf("Error: invalid file type for %s\n", texture->wall_textures[i]), 1);
+
+		//check if can open
+		if (open(texture->wall_textures[i], O_RDONLY) == -1)
+			return(ft_printf("Error: invalid file type for %s\n", texture->wall_textures[i]), 1);
+		i++;
+	}
+	
+	while (i < 3)
+	{
+		ft_strchr(texture->wall_textures[F], ',');
+
+	}
 	//file for wall textures invalid
 	//can file be opened
 	//can file be converted to xpm 

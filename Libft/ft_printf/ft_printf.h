@@ -17,11 +17,11 @@
 # include <unistd.h> //write func
 
 //libft helper function
-void	ft_putchar_fd(char c, int fd, int *bytes_written);
-void	ft_putnbr_fd(long long n, int fd, int *bytes_written);
-void	ft_putstr_fd(char *s, int fd, int *bytes_written);
-void	ft_putnbr_hex(long long x, int flag, int *bytes_written);
-void	ft_putptr(unsigned long long x, int *bytes_written);
+void	pf_putchar_fd(char c, int fd, int *bytes_written);
+void	pf_putnbr_fd(long long n, int fd, int *bytes_written);
+void	pf_putstr_fd(char *s, int fd, int *bytes_written);
+void	pf_putnbr_hex(long long x, int flag, int *bytes_written);
+void	pf_putptr(unsigned long long x, int *bytes_written);
 
 //ft_printf file
 int		ft_printf(const char *format, ...);

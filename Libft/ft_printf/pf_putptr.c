@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:54:54 by syee              #+#    #+#             */
-/*   Updated: 2025/06/30 16:54:54 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/09 16:29:40 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	print_recursive(unsigned long long x, char *base_arr,
 	*bytes_written += write (1, &base_arr[x % 16], 1);
 }
 
-void	ft_putptr(unsigned long long x, int *bytes_written)
+void	pf_putptr(unsigned long long x, int *bytes_written)
 {
 	char	*base_arr;
 
