@@ -1,13 +1,19 @@
 CFLAGS = #-Wall -Werror -Wextra
-CC = gcc 
-INC = -I ./includes -I ./Libft
+CC = gcc
+LIB = -lXext -lX11 -lm -lbsd
+
+INC = -I ./includes -I ./Libft -I ./minilibx-linux -I ./Libft/ft_printf
 LIBFT = Libft/libft.a
+MINILIBX = minilibx-linux/libmlx.a
 
 $(LIBFT):
 	@$(MAKE) -C Libft
 
+$(MINILIBX):
+	@$(MAKE) -C minilibx-linux
+
 #all the files to include here 
-SRC = main.c
+SRC = main.c check_file.c read_file.c mlx_handlers.c
 
 #Take whatever is inside SRC, and change .c to .o.
 OBJ = $(SRC:.c=.o)
@@ -16,8 +22,8 @@ NAME = cub3D
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $^ -o $@
+$(NAME): $(OBJ) $(LIBFT) $(MINILIBX)
+	$(CC) $(CFLAGS) $^ $(LIB) -o $@
 
 %.o : %.c
 	@$(CC) $(CFLAGS) $(INC) -c $^ -o $@
@@ -25,6 +31,7 @@ $(NAME) : $(OBJ) $(LIBFT)
 clean: 
 	@rm -f $(OBJ)
 	@$(MAKE) -C Libft clean
+	@$(MAKE) -C minilibx-linux clean
 
 fclean: clean
 	rm -f $(NAME)

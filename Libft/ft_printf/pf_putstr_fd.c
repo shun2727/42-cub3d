@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/03 19:48:21 by syee              #+#    #+#             */
-/*   Updated: 2025/06/03 19:48:23 by syee             ###   ########.fr       */
+/*   Created: 2025/06/27 21:42:23 by syee              #+#    #+#             */
+/*   Updated: 2026/09/09 16:29:21 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+#include "ft_printf.h"
+
+void	pf_putstr_fd(char *s, int fd, int *bytes_written)
 {
-	void	*delcont;
+	int		i;
+	char	c;
 
-	if (lst == NULL)
-		return ;
-	delcont = lst -> content;
-	del(delcont);
-	free(lst);
+	i = 0;
+	if (!s)
+		*bytes_written += write (fd, "(null)", 6);
+	else
+	{
+		while (s[i])
+		{
+			c = s[i++];
+			*bytes_written += write (fd, &c, 1);
+		}
+	}
 }

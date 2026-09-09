@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_hex.c                                    :+:      :+:    :+:   */
+/*   pf_putnbr_hex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 16:58:51 by syee              #+#    #+#             */
-/*   Updated: 2025/07/02 00:46:11 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/09 16:38:30 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_recursive(long long x, char *base_arr, int *bytes_written)
 	*bytes_written += write(1, &base_arr[x % 16], 1);
 }
 
-void	ft_putnbr_hex(long long x, int flag, int *bytes_written)
+void	pf_putnbr_hex(long long x, int flag, int *bytes_written)
 {
 	char	*base_arr;
 

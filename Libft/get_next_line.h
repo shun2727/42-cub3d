@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 20:04:36 by syee              #+#    #+#             */
-/*   Updated: 2025/06/20 21:05:53 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/07 21:13:45 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@
 
 # define OPEN_MAX 65534
 
-int		ft_strlen(char *s);
-char	*ft_strchr(const char *s, int c);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
-char	*ft_strjoin(char *staticbuffer, char *buffer);
-char	*ft_strdup(const char *src);
+void	*gnl_memcpy(void *dest, const void *src, size_t n);
+char	*gnl_strjoin(char *staticbuffer, char *buffer);
+char	*gnl_strdup(const char *src);
 
 void	update_staticbuffer(char **staticbuffer);
 char	*get_next_line(int fd);

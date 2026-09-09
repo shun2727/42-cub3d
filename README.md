@@ -2,6 +2,7 @@
 floodfill
 ---
 https://www.youtube.com/watch?v=ldqAmkdthHY
+https://www.youtube.com/watch?v=RwgKqA9j3JE
 
 minilibx
 ---
@@ -38,3 +39,4 @@ bytesread = read(fd, buffer, buffsize);
 write()
 
 convert those to the walls
+need to do an additional checking for the walls if they were initialized more than once

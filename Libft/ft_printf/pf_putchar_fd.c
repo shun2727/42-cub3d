@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   pf_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/03 19:39:04 by syee              #+#    #+#             */
-/*   Updated: 2025/06/03 19:39:06 by syee             ###   ########.fr       */
+/*   Created: 2025/06/26 21:17:33 by syee              #+#    #+#             */
+/*   Updated: 2026/09/09 16:29:14 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+#include "ft_printf.h"
+
+void	pf_putchar_fd(char c, int fd, int *bytes_written)
 {
-	t_list	*node;
-
-	if (!lst || !new)
-		return ;
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		node = ft_lstlast (*lst);
-		node -> next = new;
-	}
+	*bytes_written += write(fd, &c, 1);
 }
-//**lst is like &lst
