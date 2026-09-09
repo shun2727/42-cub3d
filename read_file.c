@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 19:27:24 by syee              #+#    #+#             */
-/*   Updated: 2026/09/08 23:07:02 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/09 12:09:48 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,59 +37,17 @@ char	*ft_strdup_nl(const char *src)
 	*desttemp = '\0';
 	return (dest);
 }
-
-char *read_file(char *file, t_texture *texture)
+void	init_texture_compare(char **texture_compare)
 {
-	int		file_fd;
-
-	file_fd = open(file, O_RDONLY);
-	if (file_fd == -1)
-		return (print_err("Unable to open file\n"), NULL);
-		
-	char *str;
-	char *pointer;
-
-	str = get_next_line(file_fd);
-	while (str != NULL)
-	{
-		//need to add a line here to check fo duplicate reassignment
-		if (ft_strnstr(str, "NO ", 3) && !texture->no)
-			texture->no = ft_strdup_nl(str + 3);
-		else if (ft_strnstr(str, "SO ", 3) && !texture->so)
-			texture->so = ft_strdup_nl(str + 3);
-		else if (ft_strnstr(str, "WE ", 3) && !texture->we)
-			texture->we = ft_strdup_nl(str + 3);
-		else if (ft_strnstr(str, "EA ", 3) && !texture->ea)
-			texture->ea = ft_strdup_nl(str + 3);
-		else if (ft_strnstr(str, "F ", 3) && !texture->f)
-			texture->f = ft_strdup_nl(str + 2);
-		else if (ft_strnstr(str, "C ", 3) && !texture->c)
-			texture->c = ft_strdup_nl(str + 2);
-		else if (ft_strnstr(str, "NO ", 3) || ft_strnstr(str, "SO ", 3) || 
-			ft_strnstr(str, "WE ", 3) || ft_strnstr(str, "WE ", 3) ||
-			ft_strnstr(str, "F ", 3) || ft_strnstr(str, "C ", 3))
-		{
-			//PRINT "duplicate input"
-			//free and quit 
-		}
-			
-		free(str);
-		str = get_next_line(file_fd);
-	}
-	//struct_print_free_debug(texture);
-	validate_texture(texture);
-	return(NULL);
-}
-
-	char			*texture_compare[7];
 	texture_compare[NO] = "NO ";
 	texture_compare[SO] = "SO ";
 	texture_compare[EA] = "EA ";
 	texture_compare[WE] = "WE ";
 	texture_compare[F] = "F ";
 	texture_compare[C] = "C ";
+}
 
-int function(char *str, t_texture *texture, char **texture_compare)
+int	feed_texture(char *str, t_texture *texture, char **texture_compare)
 {
 	t_texture_enum	texture_enum;
 	int				i;
@@ -108,12 +66,45 @@ int function(char *str, t_texture *texture, char **texture_compare)
 			if (texture->wall_textures[i])
 				return (ft_printf("Dupilcated texture"), 1); //add a clean all funciton
 			else
-				texture->wall_textures[i]= ft_strdup_nl(str + 3);
+				texture->wall_textures[i - 4] = ft_strdup_nl(str + 3);
 		}
 		i++;
 	}
-
+	return (0);
 }
+
+char *read_file(char *file, t_texture *texture)
+{
+	int		file_fd;
+	char	*texture_compare[7];
+	char	*str;
+	char	*pointer;
+
+	file_fd = open(file, O_RDONLY);
+	if (file_fd == -1)
+		return (print_err("Unable to open file\n"), NULL); //nothing has been initialized so can just quit
+	
+	init_texture_compare(texture_compare);
+	str = get_next_line(file_fd);
+	while (str != NULL)
+	{
+		if (feed_texture(str, texture, texture_compare) != 0)
+		{
+			printf("Texture compare error\n");
+			//free(str);
+			//free_all(struct only) & exit
+		}
+		//validate_texture
+		//feed_map		
+		free(str);
+		str = get_next_line(file_fd);
+	}
+	//validate_texture(texture);
+	struct_print_free_debug(texture);
+	return(NULL);
+}
+
+
 
 /*
 declare a str arr and store it inside, do while if true, get the array index and assign it to the array inside the struct
@@ -132,29 +123,22 @@ void *validate_texture(t_texture *texture)
 	//can file be displayed in mlx window
 	
 	//check if .xpm
-
-	//check if can open
-	texture_fd = open(texture->no, O_RDONLY);
-	if (texture_fd == -1)
-	{
-		close(texture_fd);
-		return(print_err("Invalid file for wall texture\n"), NULL);
-	}
-	printf("%s\n", texture->no);
 }
+
 void	struct_print_free_debug(t_texture *texture)
 {
-	printf("%s\n", texture->no);
-	printf("%s\n", texture->so);
-	printf("%s\n", texture->we);
-	printf("%s\n", texture->ea);
-	printf("%s\n", texture->f);
-	printf("%s\n", texture->c);
+	printf("%s\n", texture->wall_textures[0]);
+	printf("%s\n", texture->wall_textures[1]);
+	printf("%s\n", texture->wall_textures[2]);
+	printf("%s\n", texture->wall_textures[3]);
+	printf("%s\n", texture->floor_ceiling[0]);
+	printf("%s\n", texture->floor_ceiling[1]);
+	
 
-	free(texture->no);
-	free(texture->so);
-	free(texture->we);
-	free(texture->ea);
-	free(texture->f);
-	free(texture->c);
+	free(texture->wall_textures[0]);
+	free(texture->wall_textures[1]);
+	free(texture->wall_textures[2]);
+	free(texture->wall_textures[3]);
+	free(texture->floor_ceiling[0]);
+	free(texture->floor_ceiling[1]);
 }
