@@ -1,17 +1,6 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-
+NO ./tester_files/N.xpm
+SO ./tester_files/S.xpm
+WE ./tester_files/W.xpm
+EA ./tester_files/E.xpm
 F 220,100,0
 C 225,30,0
-
-
-111111
-100101
-101001
-1100N1
-111111
-
-//call validate texture 
-//call the function to parse "1,0,NSEW"
