@@ -6,21 +6,12 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 23:29:44 by syee              #+#    #+#             */
-/*   Updated: 2026/09/07 21:50:34 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/11 15:19:20 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+#include "libft.h"
 
 void	*gnl_memcpy(void *dest, const void *src, size_t n)
 {

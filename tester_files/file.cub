@@ -1,6 +1,9 @@
 NO ./tester_files/N.xpm
 SO ./tester_files/S.xpm
 WE ./tester_files/W.xpm
+
+
+
 EA ./tester_files/E.xpm
-F 220,100,0
-C 225,30,0
+F 220,,,1
+C 225,309,
