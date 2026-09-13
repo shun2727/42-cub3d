@@ -29,9 +29,11 @@ typedef enum e_texture_enum
 
 typedef enum e_fulfilled_flag
 {
-	UNCHECK_UNFULFILLED = 0,
-	CHECKED_UNFULFILLED = 1,
-	FULFILLED = 2
+	CHECKING_FILE_CONTENT = 0,
+	MAP_ERROR = 1,
+	TEXTURE_ERROR = 2,
+	FULFILLED_FILE = 3,
+	CHECKING_MAP_CONTENT = 4
 
 }  t_fulfilled_flag;
 
@@ -41,7 +43,10 @@ typedef struct s_texture
 	int		ceiling[3];
 	char	*wall_textures[4];
 	char	*floor_ceiling[2];
-	char	map[MAP_SIZE][MAP_SIZE];
+	char	map[MAP_SIZE][MAP_SIZE + 1];
+	
+	int		player_x;
+	int		player_y;
 
 }	t_texture;
 
@@ -55,13 +60,17 @@ typedef struct s_window
 //helper_functions
 int chr_count(char needle, char *haystack);
 char *ft_rstrstr(char *needle, char *haystack, int needlen);
+char	*ft_strdup_nl(const char *src);
+void	print_err(char *str);
 
 //read_file
 int read_file(char *file, t_texture *texture);
 
-//helper_functions
-char	*ft_strdup_nl(const char *src);
-void	print_err(char *str);
+//parse_map
+void init_map_texture(char map_texture[8]);
+int check_map_texture(char *str);
+int	feed_map(char map[MAP_SIZE][MAP_SIZE + 1], char *str);
+int validate_map(char map[MAP_SIZE][MAP_SIZE + 1]);
 
 //mlx_handlers
 int hook_close_window(int keycode, t_window *window);

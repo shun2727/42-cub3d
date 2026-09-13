@@ -12,6 +12,7 @@ SRC = source/main.c \
 	source/helper_functions/ft_rstrstr.c \
 	source/helper_functions/ft_strdup_nl.c \
 	source/parsing/read_file.c \
+	source/parsing/parse_map.c \
 	source/parsing/parse_texture.c
 
 OBJ_DIR = build
