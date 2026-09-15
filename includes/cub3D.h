@@ -37,6 +37,14 @@ typedef enum e_fulfilled_flag
 
 }  t_fulfilled_flag;
 
+typedef enum e_map_flag
+{
+	BEFORE_MAP_CHECKING = 0,
+	DURING_MAP_CHECKING = 1,
+	AFTER_MAP_CHECKING = 2
+
+}  t_map_flag;
+
 typedef struct s_texture
 {
 	int		floor[3];
@@ -62,6 +70,7 @@ int chr_count(char needle, char *haystack);
 char *ft_rstrstr(char *needle, char *haystack, int needlen);
 char	*ft_strdup_nl(const char *src);
 void	print_err(char *str);
+bool	is_blank_line(char *str);
 
 //read_file
 int read_file(char *file, t_texture *texture);

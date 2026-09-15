@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/11 22:03:35 by syee              #+#    #+#             */
-/*   Updated: 2026/09/13 19:43:58 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/14 13:40:10 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	feed_map(char map[MAP_SIZE][MAP_SIZE + 1], char *str)
 	col = 0;
 
 	printf ("Feeding the map, at row : %d\n", row);
+
 	if (ft_strchr(str, '\n')) //if it has a newline then minus the new line
 		map_len = ft_strlen(str) - 1;
 	else

@@ -2,13 +2,9 @@ NO ./tester_files/N.xpm
 SO ./tester_files/S.xpm
 WE ./tester_files/W.xpm
 EA ./tester_files/E.xpm
-
 F 220,1,1
 C 225,30,1
 
-
 111111
-100101
-101001
-1100N1
+
 111111
