@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   chr_count.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 17:33:47 by syee              #+#    #+#             */
-/*   Updated: 2026/09/11 15:18:07 by syee             ###   ########.fr       */
+/*   Created: 2026/09/11 17:08:15 by syee              #+#    #+#             */
+/*   Updated: 2026/09/11 17:08:28 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+/*
+counts the amount of needles (char) within the provided string (haystack)
+*/
+int chr_count(char needle, char *haystack)
 {
-	size_t	i;
-	size_t	j;
-	size_t	dstlen;
+	int	count;
 
-	i = 0;
-	j = 0;
-	dstlen = ft_strlen(dst);
-	i = dstlen;
-	if (dstlen >= dstsize)
-		return (dstsize + ft_strlen(src));
-	while (i < (dstsize - 1) && src[j])
-		dst[i++] = src[j++];
-	dst[i] = '\0';
-	return (dstlen + ft_strlen(src));
+	count = 0;
+	while (*haystack != '\0')
+	{
+		if (*haystack == needle)
+			count++;
+		haystack++;
+	}
+	return(count);
 }

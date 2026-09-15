@@ -6,13 +6,13 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 19:27:24 by syee              #+#    #+#             */
-/*   Updated: 2026/09/09 18:56:41 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/10 18:45:29 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 void	struct_print_free_debug(t_texture *texture);
-void *validate_texture(t_texture *texture);
+int	validate_texture(t_texture *texture);
 
 void	print_err(char *str)
 {
@@ -91,61 +91,121 @@ char *read_file(char *file, t_texture *texture)
 	texture_count = 1;
 	
 	str = get_next_line(file_fd);
+	
+
 	while (str != NULL)
 	{
 		texture_count = texture_count * feed_texture(str, texture, texture_compare);
+		//this test will run every turn
+		if (texture_count != 1000000 && !ft_strchr(str, '\n'))
+		{
+			//ft_printf("Error: incomplete textures\n");
+		}
 		if (texture_count < 1)
 		{
 			//free(str);
 			//call cleanup
 		}
-		
+		//if read until the following chars and the texture is not 1000000
 		if (texture_count != 1000000)
 		{
-			ft_printf("Error: incomplete textures\n");
+			//ft_printf("Error: incomplete textures\n");
 			//call cleanup
 		}
+		else if (texture_count == 1000000)
+		{
+			if (validate_texture(texture) != 0)
+			{
+				//free
+				//exit
+			}
+		}
 		
-		//validate_texture
+		
 		//feed_map		
-		printf("texture count : %d\n", texture_count);
 		free(str);
 		str = get_next_line(file_fd);
 	}
+	printf("texture count : %d\n", texture_count);
+	close(file_fd);
 	//validate_texture(texture);
 	struct_print_free_debug(texture);
 	return(NULL);
 }
 
-//need to use mlx here 
-void	*validate_texture(t_texture *texture)
+//will free the string after use
+int	extract_int(char *str, char *start, char *end)
 {
 	int	i;
+	int	result;
+	int len;
+
+	i = 0;
+	result = 0;
+	len = 0;
+	while (start != end)
+	{
+		start++;
+		len++;
+	}
+	if (len == 0)
+		return (free(str), -1);
+	while (i < len)
+	{
+		if ((str[i] >= '0' && str[i] <= '9'))
+			result = (result * 10) + (str[i] - '0');
+		else
+			return (free(str), -1);
+		i++;
+	}
+	if (result > 255)
+		return (free(str), -1);
+	return (free(str), result);
+}
+
+
+//need to use mlx here 
+int	assign_value(int arr[3], char *str)
+{
+	int i;
+	
+	i = 0;
+	if (charcount(',', str) != 2 || ft_strlen(str) > 11 || ft_strlen(str) < 5)
+		return (1);
+
+	char *first_comma;
+	char *second_comma;
+	first_comma = ft_strchr(str, ',');
+	second_comma = ft_strchr(first_comma++, ',');
+	
+	
+	arr[0] = extract_int(str, str, first_comma);
+	arr[1] = ft_strchr_n(str, ',');
+	arr[2] = ft_atoi
+	//convert 
+	//check
+	//assign
+}
+
+int	validate_texture(t_texture *texture)
+{
+	int	i;
+	int	file_fd;
 
 	i = 0;
 	while (i < 4)
 	{
-		//check .xpm
 		if (!ft_rstrstr(".xpm", texture->wall_textures[i], 4))
-			return(ft_printf("Error: invalid file type for %s\n", texture->wall_textures[i]), 1);
-
-		//check if can open
-		if (open(texture->wall_textures[i], O_RDONLY) == -1)
-			return(ft_printf("Error: invalid file type for %s\n", texture->wall_textures[i]), 1);
+			return (ft_printf("Error: invalid file type for %s\n", texture->wall_textures[i]), 1);
+		file_fd = open(texture->wall_textures[i], O_RDONLY);
+		if (file_fd == -1)
+			return (ft_printf("Error: file cannot be opened for %s\n", texture->wall_textures[i]), close(file_fd), 1);
+		close(file_fd);
 		i++;
 	}
-	
-	while (i < 3)
-	{
-		ft_strchr(texture->wall_textures[F], ',');
-
-	}
-	//file for wall textures invalid
-	//can file be opened
-	//can file be converted to xpm 
-	//can file be displayed in mlx window
-	
-	//check if .xpm
+	if (assign_value(texture->floor, texture->floor_ceiling[1]) != 0 || assign_value(texture->ceiling, texture->floor_ceiling[2]) != 0)
+		return (ft_printf("Error: invalid RGB values %s\n"), 1);
+	return (0);
 }
 
 void	struct_print_free_debug(t_texture *texture)
