@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   parse_map_path.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/11 22:03:35 by syee              #+#    #+#             */
-/*   Updated: 2026/09/14 13:40:10 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/23 23:26:25 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int check_map_texture(char *str)
 
 
 
-int	feed_map(char map[MAP_SIZE][MAP_SIZE + 1], char *str)
+int	feed_map(char map[MAP_SIZE][MAP_SIZE + 1], char *str, t_texture *texture)
 {
 	static int	row;
 	int			col;
@@ -83,6 +83,11 @@ int	feed_map(char map[MAP_SIZE][MAP_SIZE + 1], char *str)
 	while (*str != '\n' && *str != '\0')
 	{
 		map[row][col] = *str;
+		if (match_direction(str))
+		{
+			texture->player_x = col;
+			texture->player_y = row;
+		}
 		str++;
 		col++;
 	}
@@ -95,5 +100,24 @@ int validate_map(char map[MAP_SIZE][MAP_SIZE + 1])
 {
 	printf ("Inside validate map\n");
 
+	return (0);
+}
+
+int match_direction(char dir)
+{
+	char	direction[5];
+	int		i;
+
+	direction[0]='N';
+	direction[1]='S';
+	direction[2]='W';
+	direction[3]='E';
+	direction[4]='\0';
+	while (i < 4)
+	{
+		if (dir == direction[i])
+			return (1);
+		i++;
+	}
 	return (0);
 }

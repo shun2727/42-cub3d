@@ -11,9 +11,13 @@ SRC = source/main.c \
 	source/helper_functions/chr_count.c \
 	source/helper_functions/ft_rstrstr.c \
 	source/helper_functions/ft_strdup_nl.c \
+	source/helper_functions/is_blank_line.c \
+	source/helper_functions/print_err.c \
 	source/parsing/read_file.c \
-	source/parsing/parse_map.c \
-	source/parsing/parse_texture.c
+	source/parsing/parse_map_path.c \
+	source/parsing/map_path_check.c \
+	source/parsing/map_texture_check.c \
+	source/parsing/parse_map_texture.c
 
 OBJ_DIR = build
 OBJ = $(patsubst source/%.c,$(OBJ_DIR)/%.o,$(SRC))

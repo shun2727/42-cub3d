@@ -29,7 +29,7 @@ typedef enum e_texture_enum
 
 typedef enum e_fulfilled_flag
 {
-	CHECKING_FILE_CONTENT = 0,
+	CHECKING_FILE_TEXTURE = 0,
 	MAP_ERROR = 1,
 	TEXTURE_ERROR = 2,
 	FULFILLED_FILE = 3,
@@ -74,11 +74,12 @@ bool	is_blank_line(char *str);
 
 //read_file
 int read_file(char *file, t_texture *texture);
+int	flag_check(int *flag, t_texture *texture);
 
 //parse_map
 void init_map_texture(char map_texture[8]);
 int check_map_texture(char *str);
-int	feed_map(char map[MAP_SIZE][MAP_SIZE + 1], char *str);
+int	feed_map(char map[MAP_SIZE][MAP_SIZE + 1], char *str, t_texture *texture);
 int validate_map(char map[MAP_SIZE][MAP_SIZE + 1]);
 
 //mlx_handlers
@@ -93,5 +94,12 @@ int	extract_int(char *str, char *start, char *end);
 int	validate_texture(t_texture *texture);
 int	feed_texture(char *str, t_texture *texture, char **texture_compare);
 void	init_texture_compare(char **texture_compare);
+
+//map_path_check.c
+void read_file_map(int *flag, char *str, t_texture *texture);
+
+//map_texture_check.c
+void read_file_texture(int *flag, char *str, t_texture *texture, int *texture_count);
+
 
 #endif
