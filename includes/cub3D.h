@@ -45,6 +45,7 @@ typedef enum e_map_flag
 
 }  t_map_flag;
 
+//+1 because want to loop till null
 typedef struct s_texture
 {
 	int		floor[3];

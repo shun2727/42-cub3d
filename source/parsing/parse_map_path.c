@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/11 22:03:35 by syee              #+#    #+#             */
-/*   Updated: 2026/09/23 23:26:25 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/25 20:02:45 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,12 @@ int	feed_map(char map[MAP_SIZE][MAP_SIZE + 1], char *str, t_texture *texture)
 
 int validate_map(char map[MAP_SIZE][MAP_SIZE + 1])
 {
-	printf ("Inside validate map\n");
+	printf ("Inside validate map \n");
+	/*
+	ffrom the position on the map, check the surrounding area.
+	theres bfs and dfs
+	recursion to go 
+	*/
 
 	return (0);
 }
