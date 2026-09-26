@@ -1,0 +1,56 @@
+given the following map : 
+
+
+0 0 0 
+x 0 0 
+0 0 0
+
+
+//check for walls/leaks by flooding the outside of the map?
+first : flood the inside of the map with another value
+second :  flood the ourside of the map 
+third : if the outside of the map encountered any value thats supposed to be insdie of the map then its an invalid map
+Q : does it count if there are places in the map that are empty?
+	yes
+	but if its not allowed?
+		check the map for unvisited values form the initial map, if it detects it then make invalid (but i think this is uneeded) 
+
+	
+//flooding the inside :  
+x = 0
+y = 1
+
+x + 1 (front)
+x - 1 (back) 
+y + 1 (up)
+y - 1 (down) 
+
+lateral does not count
+mark_visited(int row, int col, map[][]) //the map here is the copied map
+{
+	if (front == uncheked)
+		mark checked;
+		call mark_visited();
+	/*based on this it will keep checking the front of the map,
+	 then the back of the map, then the up of the map, then the bottom
+	 essentially replicating depth first traversal
+	 */
+	if (back == uncheked)
+		mark checked;
+		call mark_visited()
+	if (up == uncheked)
+		mark checked;
+		call mark_visited()
+	if (down == uncheked)
+		mark checked;
+		call mark_visited()
+}
+
+Q:how do i find the point to start flooding if its a bigger map?
+	ans :
+	- create a copy of the map, where the sides are 1 tiles larger
+	- start from top left or bottom left 0,0
+Q: Will this have any uncointed/unexpected issues?
+	ans : 
+	- 
+
