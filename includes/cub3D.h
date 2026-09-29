@@ -102,5 +102,9 @@ void read_file_map(int *flag, char *str, t_texture *texture);
 //map_texture_check.c
 void read_file_texture(int *flag, char *str, t_texture *texture, int *texture_count);
 
+//validate_map_path.c
+void duplicate_map (char original_map[MAP_SIZE][MAP_SIZE + 1], char *map_copy[MAP_SIZE][MAP_SIZE + 1]);
+void flood_inside_map (int row, int col, char *map[MAP_SIZE][MAP_SIZE + 1]);
+int flood_outside_map(int row, int col, char *map[MAP_SIZE][MAP_SIZE + 1]); 
 
 #endif

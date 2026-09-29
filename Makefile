@@ -17,7 +17,9 @@ SRC = source/main.c \
 	source/parsing/parse_map_path.c \
 	source/parsing/map_path_check.c \
 	source/parsing/map_texture_check.c \
-	source/parsing/parse_map_texture.c
+	source/parsing/parse_map_texture.c \
+	source/parsing/validate_map_path.c
+
 
 OBJ_DIR = build
 OBJ = $(patsubst source/%.c,$(OBJ_DIR)/%.o,$(SRC))
