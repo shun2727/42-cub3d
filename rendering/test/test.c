@@ -38,8 +38,9 @@ int	main(void)
 
 	// parse_arg(argv, argc, vars); // original code; not needed; thus commented
 
-	init_everything(vars, "Testing title");
-	render_map(vars); // main func to for rendering
+	// TEST CODE HEHRE BRAH
+	
+
 	free_vars(vars);
 	return (0);
 }
