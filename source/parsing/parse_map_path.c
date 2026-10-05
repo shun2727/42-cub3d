@@ -6,13 +6,13 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/11 22:03:35 by syee              #+#    #+#             */
-/*   Updated: 2026/09/25 20:02:45 by syee             ###   ########.fr       */
+/*   Updated: 2026/09/26 22:58:55 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-
+int match_direction(char dir);
 void init_map_texture(char map_texture[8])
 {
 	map_texture[0] = '0';
@@ -85,26 +85,52 @@ int	feed_map(char map[MAP_SIZE][MAP_SIZE + 1], char *str, t_texture *texture)
 		map[row][col] = *str;
 		if (match_direction(str))
 		{
-			texture->player_x = col;
-			texture->player_y = row;
+			if (!texture->player_x || !texture->player_y)
+			{
+				texture->player_x = col;
+				texture->player_y = row;
+			}
+			else
+				return (ft_printf("Error : Multiple player positions found"), 1);
 		}
 		str++;
 		col++;
 	}
 	map[row][col] = '\0';
 	row++;
+	if (!texture->player_x || !texture->player_y)
+		return (ft_printf("Error : Player position not included"), 1);
 	return (0);
 }
 
-int validate_map(char map[MAP_SIZE][MAP_SIZE + 1])
-{
-	printf ("Inside validate map \n");
-	/*
-	ffrom the position on the map, check the surrounding area.
-	theres bfs and dfs
-	recursion to go 
-	*/
 
+
+int validate_map(char original_map[MAP_SIZE][MAP_SIZE + 1],t_texture *texture)
+{
+	char map_copy[MAP_SIZE][MAP_SIZE + 1];
+
+	printf ("Inside validate map \n");
+	duplicate_map(original_map, map_copy);
+	flood_inside_map(texture->player_y, texture->player_y, &map_copy); 
+	// if (flood_outside_map(0, 0, &map_copy) == 1) //returns error if it encounteres an i value
+	// 	return(ft_printf("Error : walls of map are not closed."), 1);
+	int	row;
+	int	col;
+
+	row = 0;
+	while (row < MAP_SIZE)
+	{
+		col = 0;
+		while (col < MAP_SIZE)
+		{
+			if (map_copy[row][col] == '\0')
+				break ;
+			ft_printf("%c", map_copy[row][col]);
+			col++;
+		}
+		ft_printf("\n");
+		row++;
+	}
 	return (0);
 }
 

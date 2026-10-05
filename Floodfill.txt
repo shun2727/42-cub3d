@@ -44,7 +44,13 @@ mark_visited(int row, int col, map[][]) //the map here is the copied map
 	if (down == uncheked)
 		mark checked;
 		call mark_visited()
+	return ;
 }
+
+the maps are filled with 1 and 0s, 1 for wall and 0 for 
+NSWE, 
+i (for inside)
+o (for outside)
 
 Q:how do i find the point to start flooding if its a bigger map?
 	ans :
@@ -54,3 +60,35 @@ Q: Will this have any uncointed/unexpected issues?
 	ans : 
 	- 
 
+/*
+Need to check where the player's position in 
+if there is no NSWE then , the map i invalid
+howver theres a chance that the player does something stupid like
+	111W11
+	100001
+	111111
+	in which the map will flood the outisd eof th emap with i, automatically making it invalid
+what if there is 
+	111
+	1N1
+	111
+	i think this is a vlaid map, you just cant move
+what if there is 
+	111W11
+	111N11
+	checked inside feedmap() as duplicate postions found
+what if there is 
+	11111
+	11111
+	checked inside feedmap() as no positoins found
+
+*/
+
+when allowing the players to fill in
+we have a map size of 104x104
+but we let the playe know we have 100x 100
+when parsing the map,
+start the col + 1
+start the row + 1
+check if it exceeds by seeing if row / col > 101 ike 
+	this is so that i will have a position to flood fill for. 
