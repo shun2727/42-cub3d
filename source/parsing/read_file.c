@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 19:27:24 by syee              #+#    #+#             */
-/*   Updated: 2026/09/23 22:47:10 by syee             ###   ########.fr       */
+/*   Updated: 2026/10/06 09:33:45 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	struct_print_free_debug(t_texture *texture);
 void	free_texture(t_texture *texture);
-void	print_map_debug(t_texture *texture);
+void	print_map_debug(char map[MAP_SIZE][MAP_SIZE]);
 
 int	read_file(char *file, t_texture *texture)
 {
@@ -50,7 +50,7 @@ int	flag_check(int *flag, t_texture *texture)
 	//this is specifically for after the part where theres training lines
 	if(*flag == CHECKING_MAP_CONTENT)//if there are nl only 
 	{
-		if (validate_map(texture->map) == 0)
+		if (validate_map(texture->map, texture) == 0)
 			*flag = FULFILLED_FILE;
 		else
 			*flag = MAP_ERROR;
@@ -64,7 +64,7 @@ int	flag_check(int *flag, t_texture *texture)
 	else if (*flag == FULFILLED_FILE)
 	{
 		printf("FULFILLED_FILE\n");
-		print_map_debug (texture);
+		//print_map_debug (texture->map);
 		free_texture(texture);
 	}
 	return (0);
@@ -98,7 +98,14 @@ void	struct_print_free_debug(t_texture *texture)
 		
 }
 
-void	print_map_debug(t_texture *texture)
+/**
+ * @brief prints the map with a 1 cell offset ;
+ * map is initialized with map{0}, 
+ * therefore non filled spaces are filled with a null terminator
+ * 
+ * @param texture 
+ */
+void	print_map_debug(char map[MAP_SIZE][MAP_SIZE])
 {
 	int	row;
 	int	col;
@@ -109,9 +116,9 @@ void	print_map_debug(t_texture *texture)
 		col = 0;
 		while (col < MAP_SIZE)
 		{
-			if (texture->map[row][col] == '\0')
+			if (map[row+1][col+1] == '\0')
 				break ;
-			ft_printf("%c", texture->map[row][col]);
+			ft_printf("%c", map[row+1][col+1]);
 			col++;
 		}
 		ft_printf("\n");
@@ -119,28 +126,3 @@ void	print_map_debug(t_texture *texture)
 	}
 }
 
-
-/*
-what id the remaining liens are empty 
-*/
-
-/*
-goal : feed the stuff into teh map and print it
-issues : 
-	- the 
-*/
-
-			/*
-			if (there are new lines)
-				skip until it reaches the map section
-			else
-			{
-				flag = CHECKING_MAP_CONTENT;
-				//inside this section if it sees a new line, its still considered valid until its being checked
-			}
-				
-				
-			*/
-			//what if there are new lines 
-			//keep reading newlines ()
-			//it is a null temrinated strinf right ?

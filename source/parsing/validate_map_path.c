@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 17:32:03 by syee              #+#    #+#             */
-/*   Updated: 2026/09/26 22:51:04 by syee             ###   ########.fr       */
+/*   Updated: 2026/10/06 10:16:49 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 
 /**
-* duplicates map
-* @param original_map 
-* @param map_copy pointer to the copy of the map
-* @return void
-*/
-void duplicate_map (char original_map[MAP_SIZE][MAP_SIZE + 1], char *map_copy[MAP_SIZE][MAP_SIZE + 1])
+ * @brief Duplicates map, accepts the original map and pointer to the map_copy
+ * 
+ * @param original_map 
+ * @param map_copy 
+ */
+void duplicate_map (char original_map[MAP_SIZE][MAP_SIZE], char (*map_copy)[MAP_SIZE][MAP_SIZE])
 {
 	int row;
 	int col;
@@ -28,9 +28,9 @@ void duplicate_map (char original_map[MAP_SIZE][MAP_SIZE + 1], char *map_copy[MA
 	while (row < MAP_SIZE)
 	{
 		col = 0;
-		while (col < MAP_SIZE + 1)
+		while (col < MAP_SIZE) //here ?
 		{
-			*map_copy[row][col] = original_map[row][col];
+			(*map_copy)[row][col] = original_map[row][col];
 			col++;
 		}
 		row++;
@@ -38,7 +38,7 @@ void duplicate_map (char original_map[MAP_SIZE][MAP_SIZE + 1], char *map_copy[MA
 }
 
 
-void flood_inside_map (int row, int col, char *map[MAP_SIZE][MAP_SIZE + 1]) //the map here is the copied map, using floodfil 
+void flood_inside_map (int row, int col, char *map[MAP_SIZE][MAP_SIZE]) //the map here is the copied map, using floodfil 
 {
 	if (*map[row][col + 1] == '0') //front, check for '\0'
 	{
@@ -68,37 +68,49 @@ void flood_inside_map (int row, int col, char *map[MAP_SIZE][MAP_SIZE + 1]) //th
 
 
 /**
-* floods the outside of the map with 'o', will be called recursively.
+* @brief floods the outside of the map with 'o', will be called recursively.
 * starts with (0,0) as the top left corner of the map
 * @param row
 * @param col 
 * @param map 
-* @return 1 on error, 0 on success
+* @return void, does not return anything on success or failure and merely fills the map
 */
-int flood_outside_map(int row, int col, char *map[MAP_SIZE][MAP_SIZE + 1])
+int flood_outside_map(int row, int col, char (*map)[MAP_SIZE][MAP_SIZE])
 {
-	if (*map[row][col + 1] == '0') //front, check for '\0'
+	
+	if ((col + 1 <= MAP_SIZE) &&(*map)[row][col + 1] == '\0') //checks front
 	{
-		*map[row][col + 1] = 'i';
-		if (map[row][col + 2]) //if its not '\0' 
-			flood_inside_map(row, col + 2, map);
+		(*map)[row][col + 1] = 'o';
+		//printf("front col %d\n", col + 1);
+		if (col + 2 < MAP_SIZE) 
+		{
+			flood_outside_map(row, col + 1, map);
+		}
 	}
-	if (*map[row][col - 1] == '0') //back check if col == 0
+	//printf("does it reach here");
+	if ((col - 1 >= 0) &&(*map)[row][col - 1] == '\0') //checks bac
 	{
-		*map[row][col - 1] = 'i';
-		if (col - 2 >= 0 )
-			flood_inside_map(row, col - 2, map);
+		(*map)[row][col - 1] = 'o';
+		//printf("back col %d\n", col - 1);
+		if (col - 2 >= 0)
+		{
+			flood_outside_map(row, col - 1, map);
+		}
 	}
-	if (*map[row + 1][col] == '0') //down check if row 
+	if ((row + 1 <= MAP_SIZE) && (*map)[row + 1][col] == '\0') //check down
 	{
-		*map[row + 1][col] = 'i';
-		if (row + 2 <= MAP_SIZE)
-			flood_inside_map(row + 2, col, map);
+		(*map)[row + 1][col] = 'o';
+		if (row + 2 < MAP_SIZE)
+			flood_outside_map(row + 2, col, map);
 	}
-	if (*map[row - 1][col] == '0') //up
+	if ((row - 1 >= 0) && (*map)[row - 1][col] == '\0') //checks up
 	{
-		*map[row - 1][col] = 'i';
+		(*map)[row - 1][col] = 'o';
 		if (row - 2 >= 0)
-			flood_inside_map(row - 2, col, map);
+			flood_outside_map(row - 2, col, map);
 	}
 }
+
+/*
+it was brace initialized so cant check using null terminators and cn only with map size 
+*/

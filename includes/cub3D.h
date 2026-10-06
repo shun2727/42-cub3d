@@ -1,7 +1,7 @@
 #ifndef	CUB3D_H
 #define CUB3D_H
 
-#define MAP_SIZE 100
+#define MAP_SIZE 102
 
 
 #include "libft.h"
@@ -52,7 +52,7 @@ typedef struct s_texture
 	int		ceiling[3];
 	char	*wall_textures[4];
 	char	*floor_ceiling[2];
-	char	map[MAP_SIZE][MAP_SIZE + 1];
+	char	map[MAP_SIZE][MAP_SIZE];
 	
 	int		player_x;
 	int		player_y;
@@ -80,8 +80,8 @@ int	flag_check(int *flag, t_texture *texture);
 //parse_map
 void init_map_texture(char map_texture[8]);
 int check_map_texture(char *str);
-int	feed_map(char map[MAP_SIZE][MAP_SIZE + 1], char *str, t_texture *texture);
-int validate_map(char map[MAP_SIZE][MAP_SIZE + 1]);
+int	feed_map(char (*map)[MAP_SIZE][MAP_SIZE], char *str, t_texture *texture);
+int validate_map(char original_map[MAP_SIZE][MAP_SIZE],t_texture *texture);
 
 //mlx_handlers
 int hook_close_window(int keycode, t_window *window);
@@ -103,8 +103,11 @@ void read_file_map(int *flag, char *str, t_texture *texture);
 void read_file_texture(int *flag, char *str, t_texture *texture, int *texture_count);
 
 //validate_map_path.c
-void duplicate_map (char original_map[MAP_SIZE][MAP_SIZE + 1], char *map_copy[MAP_SIZE][MAP_SIZE + 1]);
-void flood_inside_map (int row, int col, char *map[MAP_SIZE][MAP_SIZE + 1]);
-int flood_outside_map(int row, int col, char *map[MAP_SIZE][MAP_SIZE + 1]); 
+void duplicate_map (char original_map[MAP_SIZE][MAP_SIZE], char (*map_copy)[MAP_SIZE][MAP_SIZE]);
+void flood_inside_map (int row, int col, char *map[MAP_SIZE][MAP_SIZE]);
+int flood_outside_map(int row, int col, char (*map)[MAP_SIZE][MAP_SIZE]); 
+
+//debugger
+void	print_map_debug(char map[MAP_SIZE][MAP_SIZE]);
 
 #endif
