@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/11 22:03:35 by syee              #+#    #+#             */
-/*   Updated: 2026/10/06 10:17:50 by syee             ###   ########.fr       */
+/*   Updated: 2026/10/06 13:08:13 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,12 @@ int validate_map(char original_map[MAP_SIZE][MAP_SIZE],t_texture *texture)
 		ft_printf("match direction %d %d",texture->player_x, texture->player_y );
 		return (ft_printf("Error : Player position not included"), 1);
 	}
-	//duplicate_map(original_map, &map_copy);
+	duplicate_map(original_map, &map_copy);
+	print_map_debug(map_copy); //works
 	
-	//flood_outside_map(0, 0, &map_copy);
+	flood_outside_map(0, 0, &map_copy);
 	
-	//print_map_debug(map_copy); //works
+	print_map_debug(map_copy); //works
 	
 	//flood_inside_map(texture->player_y, texture->player_y, &map_copy); 
 	//if (flood_outside_map(0, 0, &map_copy) == 1) //returns error if it encounteres an i value

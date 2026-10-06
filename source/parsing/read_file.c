@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/07 19:27:24 by syee              #+#    #+#             */
-/*   Updated: 2026/10/06 09:33:45 by syee             ###   ########.fr       */
+/*   Updated: 2026/10/06 13:05:41 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	struct_print_free_debug(t_texture *texture);
 void	free_texture(t_texture *texture);
-void	print_map_debug(char map[MAP_SIZE][MAP_SIZE]);
+
 
 int	read_file(char *file, t_texture *texture)
 {
@@ -64,7 +64,7 @@ int	flag_check(int *flag, t_texture *texture)
 	else if (*flag == FULFILLED_FILE)
 	{
 		printf("FULFILLED_FILE\n");
-		//print_map_debug (texture->map);
+		//print_map_debug (texture->map, 1 );
 		free_texture(texture);
 	}
 	return (0);
@@ -116,9 +116,7 @@ void	print_map_debug(char map[MAP_SIZE][MAP_SIZE])
 		col = 0;
 		while (col < MAP_SIZE)
 		{
-			if (map[row+1][col+1] == '\0')
-				break ;
-			ft_printf("%c", map[row+1][col+1]);
+			ft_printf("%c", map[row][col]);
 			col++;
 		}
 		ft_printf("\n");
