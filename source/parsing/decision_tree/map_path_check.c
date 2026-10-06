@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 20:28:19 by syee              #+#    #+#             */
-/*   Updated: 2026/10/06 07:29:13 by syee             ###   ########.fr       */
+/*   Updated: 2026/10/06 23:15:21 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void read_file_map(int *flag, char *str, t_texture *texture)
 				*flag = MAP_ERROR;
 			else if ((*str == '\0') || !ft_strchr(str, '\n')) //its at the last line
 			{
-				if (validate_map(texture->map, texture) == 0)
+				if (validate_map(&texture->map, texture) == 0)
 					*flag = FULFILLED_FILE;
 				else
 					*flag = MAP_ERROR;

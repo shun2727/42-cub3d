@@ -3,7 +3,6 @@
 
 #define MAP_SIZE 102
 
-
 #include "libft.h"
 #include "ft_printf.h"
 #include "get_next_line.h"
@@ -45,7 +44,6 @@ typedef enum e_map_flag
 
 }  t_map_flag;
 
-//+1 because want to loop till null
 typedef struct s_texture
 {
 	int		floor[3];
@@ -56,6 +54,7 @@ typedef struct s_texture
 	
 	int		player_x;
 	int		player_y;
+	char	player_dir;
 
 }	t_texture;
 
@@ -67,47 +66,49 @@ typedef struct s_window
 }	t_window;
 
 //helper_functions
-int chr_count(char needle, char *haystack);
-char *ft_rstrstr(char *needle, char *haystack, int needlen);
+int 	chr_count(char needle, char *haystack);
+char 	*ft_rstrstr(char *needle, char *haystack, int needlen);
 char	*ft_strdup_nl(const char *src);
 void	print_err(char *str);
 bool	is_blank_line(char *str);
 
-//read_file
-int read_file(char *file, t_texture *texture);
-int	flag_check(int *flag, t_texture *texture);
+//decision tree realted functions
+int		read_file(char *file, t_texture *texture);
+int		flag_check(int *flag, t_texture *texture);
+void	read_file_map(int *flag, char *str, t_texture *texture);
+void	read_file_texture(int *flag, char *str, t_texture *texture, int *texture_count);
 
-//parse_map
-void init_map_texture(char map_texture[8]);
-int check_map_texture(char *str);
-int	feed_map(char (*map)[MAP_SIZE][MAP_SIZE], char *str, t_texture *texture);
-int validate_map(char original_map[MAP_SIZE][MAP_SIZE],t_texture *texture);
-
-//mlx_handlers
-int hook_close_window(int keycode, t_window *window);
-int key_hook(int keycode, t_window *window);
-//void initialize_mlx(); (from main)
-
-
-//parse_texture.c (contains function to validate and assign textures)
-int	assign_value(int arr[3], char *str);
-int	extract_int(char *str, char *start, char *end);
-int	validate_texture(t_texture *texture);
-int	feed_texture(char *str, t_texture *texture, char **texture_compare);
+//texture_parsing
+int		feed_texture(char *str, t_texture *texture, char **texture_compare);
+int		validate_texture(t_texture *texture);
+int		extract_int(char *str, char *start, char *end);
+int		assign_rgb_value(int arr[3], char *str);
 void	init_texture_compare(char **texture_compare);
 
-//map_path_check.c
-void read_file_map(int *flag, char *str, t_texture *texture);
-
-//map_texture_check.c
-void read_file_texture(int *flag, char *str, t_texture *texture, int *texture_count);
+//path_parsing
+void	init_map_texture(char map_texture[8]);
+int		check_map_texture(char *str);
+int		feed_map(char (*map)[MAP_SIZE][MAP_SIZE], char *str, t_texture *texture);
+int		validate_map(char (*ori_map)[MAP_SIZE][MAP_SIZE],t_texture *texture);
+int		match_direction(char dir);
 
 //validate_map_path.c
-void duplicate_map (char original_map[MAP_SIZE][MAP_SIZE], char (*map_copy)[MAP_SIZE][MAP_SIZE]);
-int flood_inside_map (int row, int col, char (*map)[MAP_SIZE][MAP_SIZE]);
-void flood_outside_map(int row, int col, char (*map)[MAP_SIZE][MAP_SIZE]); 
+void	dup_map(char ori_map[MAP_SIZE][MAP_SIZE], char (*map_copy)[MAP_SIZE][MAP_SIZE]);
+void	flood_outside_map(int row, int col, char (*map)[MAP_SIZE][MAP_SIZE]); 
+int		flood_inside_map (int row, int col, char (*map)[MAP_SIZE][MAP_SIZE]);
+bool	is_inside(int row, int col, char map[MAP_SIZE][MAP_SIZE]);
+bool	is_outside(int row, int col, char map[MAP_SIZE][MAP_SIZE]);
 
 //debugger
 void	print_map_debug(char map[MAP_SIZE][MAP_SIZE]);
+void	print_struct_debug(t_texture *texture);
 
+//clean up
+void	free_texture(t_texture *texture);
+
+//mlx_handlers
+int		hook_close_window(int keycode, t_window *window);
+int		key_hook(int keycode, t_window *window);
+
+//void initialize_mlx(); (from main)
 #endif

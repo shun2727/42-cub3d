@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 19:34:18 by syee              #+#    #+#             */
-/*   Updated: 2026/09/23 22:51:18 by syee             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:06:49 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void read_file_texture(int *flag, char *str, t_texture *texture, int *texture_co
 		if (x == 1 && ft_strlen(str) != 1) //this if checks for non texture values
 		{
 			if (check_map_texture(str) == 0)
-				print_err("Map initialialized before texture");
+				ft_printf("Map initialialized before texture");
 			else
 				ft_printf("Error : invalid values found in file : %s", str);
 			*flag = TEXTURE_ERROR;

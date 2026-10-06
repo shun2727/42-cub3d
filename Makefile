@@ -13,12 +13,13 @@ SRC = source/main.c \
 	source/helper_functions/ft_strdup_nl.c \
 	source/helper_functions/is_blank_line.c \
 	source/helper_functions/print_err.c \
-	source/parsing/read_file.c \
-	source/parsing/parse_map_path.c \
-	source/parsing/map_path_check.c \
-	source/parsing/map_texture_check.c \
-	source/parsing/parse_map_texture.c \
-	source/parsing/validate_map_path.c
+	source/parsing/decision_tree/read_file.c \
+	source/parsing/path_parsing/parse_map_path.c \
+	source/parsing/decision_tree/map_path_check.c \
+	source/parsing/decision_tree/map_texture_check.c \
+	source/parsing/texture_parsing/parse_map_texture.c \
+	source/parsing/path_parsing/validate_map_path.c \
+	source/parsing/clean_up/clean_up_and_debug.c
 
 
 OBJ_DIR = build
