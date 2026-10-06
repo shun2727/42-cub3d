@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 17:32:03 by syee              #+#    #+#             */
-/*   Updated: 2026/10/06 13:37:50 by syee             ###   ########.fr       */
+/*   Updated: 2026/10/06 16:37:57 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,46 +37,107 @@ void duplicate_map (char original_map[MAP_SIZE][MAP_SIZE], char (*map_copy)[MAP_
 	}
 }
 
+/**
+ * @brief fills from the pleyer's front, cannot fill from its current spot
+ * 
+ * @param row 
+ * @param col 
+ * @param map 
+ * @return int 
+ */
 
-void flood_inside_map (int row, int col, char *map[MAP_SIZE][MAP_SIZE]) //the map here is the copied map, using floodfil 
+/*
+check if the current position is the first player position given denoted by an argument passed ? 
+*/
+bool is_inside(int row, int col, char map[MAP_SIZE][MAP_SIZE])
 {
+	if (map[row][col] == '0' || map[row][col] == ' ')
+		return (true);
+	return (false);
+}
+int is_outside(int row, int col, char map[MAP_SIZE][MAP_SIZE])
+{
+	if (map[row][col] == 'o')
+		return (true);
+	return (false);
+}
+
+int flood_inside_map (int row, int col, char (*map)[MAP_SIZE][MAP_SIZE])
+{
+	static int flag;
 	
-	if (*map[row][col + 1] == '0') //front, check for '\0'
+	if (flag == 1)
+		return (printf("flag is %d",flag), flag);
+		
+	if (col + 1 < MAP_SIZE) //checks front
 	{
-		*map[row][col + 1] = 'i';
-		if (map[row][col + 2]) //if its not '\0' 
-			flood_inside_map(row, col + 2, map);
+		
+		if (is_inside(row, col + 1, *map))
+		{
+			(*map)[row][col + 1] =  'i';
+			flag = flood_inside_map(row, col + 1, map);
+		}
+		if (is_outside(row, col + 1, *map))
+		{
+			printf(" col+ 1 : col = %d row : %d %c \n", col + 1 ,row ,(*map)[row][col + 1]);	
+			return (1);
+		}
 	}
-	if (*map[row][col - 1] == '0') //back check if col == 0
+	if (col - 1 >= 0)
 	{
-		*map[row][col - 1] = 'i';
-		if (col - 2 >= 0 )
-			flood_inside_map(row, col - 2, map);
+	
+		if (is_inside(row, col - 1, *map))
+		{
+			(*map)[row][col - 1] =  'i';
+			flag = flood_inside_map(row, col - 1, map);
+		}
+		if (is_outside(row, col - 1, *map))
+		{
+			printf(" col -1 : col = %d row : %d %c \n", col - 1 ,row ,(*map)[row][col - 1]);
+			return (1);
+		}
 	}
-	if (*map[row + 1][col] == '0') //down check if row 
+	if (row + 1 < MAP_SIZE) //down
 	{
-		*map[row + 1][col] = 'i';
-		if (row + 2 <= MAP_SIZE)
-			flood_inside_map(row + 2, col, map);
+		
+		if (is_inside(row + 1, col, *map))
+		{
+			(*map)[row + 1][col] =  'i';
+			flag = flood_inside_map(row + 1, col, map);
+		}
+		if (is_outside(row + 1, col, *map))
+		{
+			printf(" row + 1 : col = %d row : %d %c \n", col ,row +1 ,(*map)[row + 1][col]);
+			return (1);
+		}
 	}
-	if (*map[row - 1][col] == '0') //up
+	if (row - 1 >= 0) //up
 	{
-		*map[row - 1][col] = 'i';
-		if (row - 2 >= 0)
-			flood_inside_map(row - 2, col, map);
+		
+		if (is_inside(row - 1, col, *map))
+		{
+			(*map)[row - 1][col] =  'i';
+			flag = flood_inside_map(row - 1, col, map);
+		}
+		if (is_outside(row - 1, col, *map))
+		{
+			printf(" row - 1 : col = %d row : %d %c \n", col ,row -1 ,(*map)[row - 1][col]);
+			return (1);
+		}
 	}
+	return (flag);
 }
 
 
 /**
 * @brief floods the outside of the map with 'o', will be called recursively.
-* starts with (0,0) as the top left corner of the map
+* starts with (0,0) as the top left corner of the map, can fill in the position it starts from
 * @param row
 * @param col 
 * @param map 
 * @return void, does not return anything on success or failure and merely fills the map
 */
-int flood_outside_map(int row, int col, char (*map)[MAP_SIZE][MAP_SIZE])
+void flood_outside_map(int row, int col, char (*map)[MAP_SIZE][MAP_SIZE])
 {
 	if ((*map)[row][col] == '\0') //fill current visited
 		(*map)[row][col] = 'o';

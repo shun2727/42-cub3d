@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/11 22:03:35 by syee              #+#    #+#             */
-/*   Updated: 2026/10/06 13:08:13 by syee             ###   ########.fr       */
+/*   Updated: 2026/10/06 16:38:27 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,10 @@ int	feed_map(char (*map)[MAP_SIZE][MAP_SIZE], char *str, t_texture *texture)
 		printf("row : %d col : %d char : %c \n", row+1, col+1, *str);
 		if (match_direction(*str))
 		{
-			
 			if (texture->player_x == 0 || texture->player_y == 0)
 			{	
-				texture->player_x = col;
-				texture->player_y = row;
+				texture->player_x = col + 1 ;
+				texture->player_y = row + 1;
 			}
 			else
 				return (ft_printf("Error : Multiple player positions found"), 1);
@@ -133,15 +132,14 @@ int validate_map(char original_map[MAP_SIZE][MAP_SIZE],t_texture *texture)
 		return (ft_printf("Error : Player position not included"), 1);
 	}
 	duplicate_map(original_map, &map_copy);
-	print_map_debug(map_copy); //works
+	//print_map_debug(map_copy); //works
 	
 	flood_outside_map(0, 0, &map_copy);
 	
+	//print_map_debug(map_copy); //works
+	if (flood_inside_map(texture->player_y, texture->player_x, &map_copy) == 1)
+		return(ft_printf("Error : walls of map are not closed."), 1);
 	print_map_debug(map_copy); //works
-	
-	//flood_inside_map(texture->player_y, texture->player_y, &map_copy); 
-	//if (flood_outside_map(0, 0, &map_copy) == 1) //returns error if it encounteres an i value
-	// 	return(ft_printf("Error : walls of map are not closed."), 1);
 	
 	return (0);
 }
