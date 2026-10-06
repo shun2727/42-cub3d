@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 17:32:03 by syee              #+#    #+#             */
-/*   Updated: 2026/10/06 16:37:57 by syee             ###   ########.fr       */
+/*   Updated: 2026/10/06 20:34:05 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ bool is_inside(int row, int col, char map[MAP_SIZE][MAP_SIZE])
 		return (true);
 	return (false);
 }
+
 int is_outside(int row, int col, char map[MAP_SIZE][MAP_SIZE])
 {
 	if (map[row][col] == 'o')
@@ -128,15 +129,6 @@ int flood_inside_map (int row, int col, char (*map)[MAP_SIZE][MAP_SIZE])
 	return (flag);
 }
 
-
-/**
-* @brief floods the outside of the map with 'o', will be called recursively.
-* starts with (0,0) as the top left corner of the map, can fill in the position it starts from
-* @param row
-* @param col 
-* @param map 
-* @return void, does not return anything on success or failure and merely fills the map
-*/
 void flood_outside_map(int row, int col, char (*map)[MAP_SIZE][MAP_SIZE])
 {
 	if ((*map)[row][col] == '\0') //fill current visited
