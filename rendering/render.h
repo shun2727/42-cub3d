@@ -20,6 +20,9 @@
 # define WIN_HEIGHT 600
 # define ESC_KEY		0xff1b
 # define CLOSE			17
+# define GRID_CELL_SIZE 64
+
+
 # include <stdio.h>
 # include <fcntl.h>
 # include <X11/X.h>
@@ -27,10 +30,16 @@
 # include <math.h>
 # include <stdlib.h>
 # include "libft.h"
+
+# define FOV (π/3) // idk if this will work or not
+# define cell_size 64 // the map's grid cells sizes (64 * 64 pixels)
+
 /*
 To tell shunqi
 -> Should have a definition/variable of WIN_WIDTH and WIN_HEIGHT so that we can change it
 -> Im probably the one initialising the window, as I will need to handle the img ptrs etc
+-> Getting the textures, or just discuss on what textures we will be using
+-> 
 
 */
 

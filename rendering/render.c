@@ -65,6 +65,10 @@ int	render(t_texture *t)
 	mlx_loop(r.win.mlx);
 
 	// raycasting side: Shooting rays
+	
+	// test: Shooting just one ray
+	// printf("Ray: %i\n"shoot_ray());
+
 
 	// raycasting side: Drawing
 	
