@@ -20,8 +20,8 @@ void	calculate_raydir(t_render *r)
 	double	camera_x = 2.0 * r->player.x / WIN_WIDTH - 1.0;
 
 	// ② この列のRay方向
-	double	ray_dir_x = dir_x + plane_x * camera_x;
-	double 	ray_dir_y = dir_y + plane_y * camera_x;
+	double	ray_dir_x = r->player.dir_x + r->player.plane_x * camera_x;
+	double 	ray_dir_y = r->player.dir_y + r->player.plane_y * camera_x;
 
 
 	double	plane_len = tan(FOV / 2);
@@ -29,16 +29,36 @@ void	calculate_raydir(t_render *r)
 	double	plane_x = -(r->player.dir_y) * plane_len;
 	double 	plane_y =  r->player.dir_x * plane_len;
 
-
-
-	
-
 	// ④ DDAの準備
-	delta_dist_x = ...;
-	delta_dist_y = ...;
-	side_dist_x = ...;
-	side_dist_y = ...;
+	double 	delta_dist_x = 1.0 / fabs(ray_dir_x);  // 1.0
+	double 	delta_dist_y = 1.0 / fabs(ray_dir_y);
+	
+	int 	map_x = (int)r->player.x;
+	int 	map_y = (int)r->player.y;
 
+	// Rayが進む方向
+	// for initialising 
+	if (ray_dir_x < 0)
+	{
+		int 	step_x = -1;
+		double 	side_dist_x = (r->player.x - map_x) * delta_dist_x;
+	}
+	else
+	{
+		int 	step_x = 1;
+		double 	side_dist_x = (map_x + 1.0 - r->player.x) * delta_dist_x;
+	}
+
+	if (ray_dir_y < 0)
+	{
+		int 	step_y = -1;
+		double 	side_dist_y = (r->player.y - map_y) * delta_dist_y;
+	}
+	else
+	{
+		int 	step_y = 1;
+		double 	side_dist_y = (map_y + 1.0 - r->player.y) * delta_dist_y;
+	}
 }
 
 void	dda(t_render *r)

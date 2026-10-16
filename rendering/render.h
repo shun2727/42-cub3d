@@ -39,7 +39,13 @@ To tell shunqi
 -> Should have a definition/variable of WIN_WIDTH and WIN_HEIGHT so that we can change it
 -> Im probably the one initialising the window, as I will need to handle the img ptrs etc
 -> Getting the textures, or just discuss on what textures we will be using
--> 
+
+BONUS THAT WILL BE IMPLEMENTED:
+Bonus list:
+• Wall collisions.
+• Animated sprites.
+• Rotate the point of view with the mouse.
+• Doors which can open and close. // up to you
 
 */
 
