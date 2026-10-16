@@ -58,13 +58,6 @@ typedef struct s_texture
 
 }	t_texture;
 
-typedef struct s_window
-{
-	void	*mlx;
-	void	*mlx_win;
-
-}	t_window;
-
 //helper_functions
 int 	chr_count(char needle, char *haystack);
 char 	*ft_rstrstr(char *needle, char *haystack, int needlen);
@@ -106,9 +99,4 @@ void	print_struct_debug(t_texture *texture);
 //clean up
 void	free_texture(t_texture *texture);
 
-//mlx_handlers
-int		hook_close_window(int keycode, t_window *window);
-int		key_hook(int keycode, t_window *window);
-
-//void initialize_mlx(); (from main)
 #endif

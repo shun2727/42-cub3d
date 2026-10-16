@@ -7,23 +7,26 @@ LIBFT = Libft/libft.a
 MINILIBX = minilibx-linux/libmlx.a
 
 SRC = source/main.c \
-	source/mlx_handlers.c \
-	source/helper_functions/chr_count.c \
-	source/helper_functions/ft_rstrstr.c \
-	source/helper_functions/ft_strdup_nl.c \
-	source/helper_functions/is_blank_line.c \
-	source/helper_functions/print_err.c \
-	source/parsing/decision_tree/read_file.c \
-	source/parsing/path_parsing/parse_map_path.c \
-	source/parsing/decision_tree/map_path_check.c \
-	source/parsing/decision_tree/map_texture_check.c \
-	source/parsing/texture_parsing/parse_map_texture.c \
-	source/parsing/path_parsing/validate_map_path.c \
-	source/parsing/clean_up/clean_up_and_debug.c
+source/helper_functions/chr_count.c \
+source/helper_functions/ft_rstrstr.c \
+source/helper_functions/ft_strdup_nl.c \
+source/helper_functions/is_blank_line.c \
+source/helper_functions/print_err.c \
+source/parsing/decision_tree/read_file.c \
+source/parsing/path_parsing/parse_map_path.c \
+source/parsing/decision_tree/map_path_check.c \
+source/parsing/decision_tree/map_texture_check.c \
+source/parsing/texture_parsing/parse_map_texture.c \
+source/parsing/path_parsing/validate_map_path.c \
+source/parsing/clean_up/clean_up_and_debug.c \
+source/rendering/init.c \
+source/rendering/put_pixel.c \
+source/rendering/render.c 
 
 
 OBJ_DIR = build
 OBJ = $(patsubst source/%.c,$(OBJ_DIR)/%.o,$(SRC))
+HEADERS = includes/cub3D.h includes/render.h
 
 NAME = cub3D
 
@@ -38,7 +41,7 @@ $(MINILIBX):
 $(NAME): $(OBJ) $(LIBFT) $(MINILIBX)
 	$(CC) $(CFLAGS) $^ $(LIB) -o $@
 
-$(OBJ_DIR)/%.o : source/%.c
+$(OBJ_DIR)/%.o : source/%.c $(HEADERS)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 

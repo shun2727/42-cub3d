@@ -1,0 +1,12 @@
+NO ./tester_files_for_parsing/N.xpm
+SO ./tester_files_for_parsing/S.xpm
+WE ./tester_files_for_parsing/W.xpm
+EA ./tester_files_for_parsing/E.xpm
+F 220,1,1
+C 225,30,1
+
+11111
+10001
+10 01
+1N001
+11111
