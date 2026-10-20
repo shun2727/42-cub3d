@@ -31,7 +31,8 @@
 # include <stdlib.h>
 # include "libft.h"
 
-# define FOV (π/3) // idk if this will work or not
+# define PI 3.1415926535 // first 30
+# define FOV (PI/3)
 # define cell_size 64 // the map's grid cells sizes (64 * 64 pixels)
 
 /*
@@ -96,9 +97,25 @@ typedef struct s_window
 {
 	void	*mlx;
 	void	*mlx_win;
-	
 }	t_window;
 
+typedef struct s_ray
+{
+	double side_dist_x;
+	double side_dist_y;
+	double delta_dist_x;
+	double delta_dist_y;
+	int map_x;
+	int map_y;
+	int step_x;
+	int step_y;
+	double raydir_x;
+	double raydir_y;
+	double plane_len;
+	double plane_x;
+	double plane_y;
+	char wall_hit;
+}	t_ray;
 
 
 // MAIN RENDERING STRUCT THAT WILL BE USED
@@ -107,6 +124,7 @@ typedef struct s_render
 {
 	t_texture	texture; // remaining this to transfer into player
 	t_player	player;
+	t_ray		ray;
 	t_window	win; // finished with init
 	t_img		img; // finished with init
 }	t_render;
@@ -140,7 +158,7 @@ typedef struct s_vars
 }	t_vars;
 */
 
-int	render(t_texture *t);
+int		render(t_texture *t);
 
 void	put_pixel(t_render *r, int x, int y, int color);
 

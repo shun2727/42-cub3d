@@ -39,7 +39,6 @@ int	render(t_texture *t)
 	for (int i = 20; i < 100; i++)
 		put_pixel(&r, i, 20, 255); // testing window
 
-
 	// test case:
 	// just grab the map and draw the obstacles
 	// alongside the player as just a dot (They must all be big enough to be visible)
