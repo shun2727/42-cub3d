@@ -21,8 +21,9 @@ int	shoot_ray(t_render *r)
 
 	// rayDir = direction + cameraPlane * cameraX
 	calculate_raydir(r);
+	dda_prep(r); // returns 
 
-	wall = dda();
+	wall = dda(r);
 	// shoot the actual ray until it hits a wall; dda is just a loop checking if the ray has hit a wall yet
 	return (wall);
 }
@@ -72,7 +73,7 @@ void	calculate_raydir(t_render *r)
 	// This tells DDA which direction to step in each axis during traversal.
 	// ③ Rayの左右・上下の進む向き
 	// Rayが進む方向
-	// for initialising 
+	// for initialising
 	if (ray_dir_x < 0)
 	{
 		int 	step_x = -1;
@@ -94,11 +95,8 @@ void	calculate_raydir(t_render *r)
 		int 	step_y = 1;
 		double 	side_dist_y = (map_y + 1.0 - r->player.y) * delta_dist_y;
 	}
-}
 
 
-void	dda(t_render *r)
-{
 	// DDA PREP
 	// where the ray starts
 	// Convert player’s position to grid cell coordinates
@@ -128,6 +126,7 @@ void	dda(t_render *r)
 
 
 }
+
 
 double	dda(t_render *r)
 {
