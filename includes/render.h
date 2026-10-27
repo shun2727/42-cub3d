@@ -109,8 +109,8 @@ typedef struct s_ray
 	int map_y;
 	int step_x;
 	int step_y;
-	double raydir_x;
-	double raydir_y;
+	double dir_x;
+	double dir_y;
 	double plane_len;
 	double plane_x;
 	double plane_y;

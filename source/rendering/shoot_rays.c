@@ -130,9 +130,18 @@ void	calculate_raydir(t_render *r)
 
 double	dda(t_render *r)
 {
-	int	hit;
+	double	wall;
 
-	hit = 0;
+	// rayDir = direction + cameraPlane * cameraX
+	calculate_raydir(r);
+
+	wall = dda();
+	// shoot the actual ray until it hits a wall; dda is just a loop checking if the ray has hit a wall yet
+	return (wall);
+}
+
+double	dda(int X0, int Y0, int X1, int Y1)
+{
 	// ⑤ DDA
 	while (!hit)
 	{
