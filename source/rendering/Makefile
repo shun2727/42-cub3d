@@ -1,7 +1,7 @@
 
 NAME = testing
-NAME_FLAGS = -Wall -Wextra -Werror mlx_linux/libmlx_Linux.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o -Ilibft
-OBJ_FLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -Includes -Ilibft
+NAME_FLAGS = -Wall -Wextra -Werror -I../../includes -Imlx_linux -Ilibft mlx_linux/libmlx_Linux.a -Lmlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+OBJ_FLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -I../../includes -Ilibft
 CC = cc
 RM = rm -f
 
@@ -11,7 +11,12 @@ LIBFT = $(LIB_PATH)/libft.a
 SRC =	test.c \
 	init.c \
 	put_pixel.c \
-	render.c
+	render.c \
+	shoot_rays.c \
+	hooks.c \
+	movement.c \
+	draw.c \
+	colors.c
 
 OBJS = $(SRC:%.c=%.o)
 

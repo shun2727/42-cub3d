@@ -15,73 +15,96 @@
 // initialising everything
 void	init_renderer_side(t_render *r, t_texture *t, char *title)
 {
-	// initialisation of the window and image
+	char	direction;
+	int		row;
+	int		col;
+	int		i;
+	int		width;
+	int		height;
+
+	r->texture = *t;
 	r->win.mlx = mlx_init();
 	r->win.mlx_win = mlx_new_window(r->win.mlx, WIN_WIDTH, WIN_HEIGHT, title);
 	r->img.ptr = mlx_new_image(r->win.mlx, WIN_WIDTH, WIN_HEIGHT);
 	r->img.addrs = mlx_get_data_addr(r->img.ptr,
 			&r->img.bits_per_pixel, &r->img.line_len, &r->img.endian);
-	// vars->magnify = (WIN_WIDTH / vars->map.width) / MAGNIFY_SCALE; // for minimap if want to implement
-
-	// init of player
-	r->player.x = t->player_x;
-	r->player.y = t->player_y;
-	r->player.dir_x = 0; // PLACEHOLDER, NOT ACTUAL VALUE
-	r->player.dir_y = 0; // PLACEHOLDER, NOT ACTUAL VALUE
-
+	i = 0;
+	while (i < 4)
+	{
+		r->wall[i].ptr = NULL;
+		r->wall[i].addrs = NULL;
+		r->wall[i].width = 0;
+		r->wall[i].height = 0;
+		if (t->wall_textures[i])
+		{
+			r->wall[i].ptr = mlx_xpm_file_to_image(r->win.mlx,
+					t->wall_textures[i], &width, &height);
+			if (r->wall[i].ptr)
+			{
+				r->wall[i].width = width;
+				r->wall[i].height = height;
+				r->wall[i].addrs = mlx_get_data_addr(r->wall[i].ptr,
+						&r->wall[i].bits_per_pixel,
+						&r->wall[i].line_len, &r->wall[i].endian);
+			}
+		}
+		i++;
+	}
+	r->player.x = t->player_x + 0.5;
+	r->player.y = t->player_y + 0.5;
+	r->player.pitch = 0;
+	r->player.mouse_x = -1;
+	r->player.mouse_y = -1;
+	r->player.mouse_warped = 0;
+	direction = t->dir;
+	if (direction != 'N' && direction != 'S'
+		&& direction != 'E' && direction != 'W')
+	{
+		row = 0;
+		while (row < MAP_SIZE)
+		{
+			col = 0;
+			while (col < MAP_SIZE && t->map[row][col] != '\0')
+			{
+				if (t->map[row][col] == 'N' || t->map[row][col] == 'S'
+					|| t->map[row][col] == 'E' || t->map[row][col] == 'W')
+				{
+					direction = t->map[row][col];
+					row = MAP_SIZE;
+					break ;
+				}
+				col++;
+			}
+			if (row < MAP_SIZE)
+				row++;
+		}
+	}
+	if (direction == 'N')
+	{
+		r->player.dir_x = 0;
+		r->player.dir_y = -1;
+		r->player.plane_x = 0.66;
+		r->player.plane_y = 0;
+	}
+	else if (direction == 'S')
+	{
+		r->player.dir_x = 0;
+		r->player.dir_y = 1;
+		r->player.plane_x = -0.66;
+		r->player.plane_y = 0;
+	}
+	else if (direction == 'W')
+	{
+		r->player.dir_x = -1;
+		r->player.dir_y = 0;
+		r->player.plane_x = 0;
+		r->player.plane_y = -0.66;
+	}
+	else
+	{
+		r->player.dir_x = 1;
+		r->player.dir_y = 0;
+		r->player.plane_x = 0;
+		r->player.plane_y = 0.66;
+	}
 }
-
-// //+1 because want to loop till null
-// typedef struct s_texture
-// {
-// 	int		floor[3]; // the 3 is referring to their RGB values
-// 	int		ceiling[3];
-// 	char	*wall_textures[4];
-// 	char	*floor_ceiling[2];
-// 	char	map[MAP_SIZE][MAP_SIZE + 1];
-	
-// 	int		player_x;
-// 	int		player_y;
-
-// 	char	dir; //NSEW
-// }	t_texture;
-
-
-
-// typedef struct s_player
-// {
-//     double x;
-//     double y;
-
-//     double dir_x;
-//     double dir_y;
-
-//     double plane_x; // has not been initialised yet, will be used later on
-//     double plane_y;
-
-// } t_player;
-
-// typedef struct s_img
-// {
-// 	void	*ptr;
-// 	void	*addrs;
-// 	int		line_len;
-// 	int		bits_per_pixel;
-// } 	t_img;
-
-// typedef struct s_window
-// {
-// 	void	*mlx;
-// 	void	*mlx_win;
-
-// }	t_window;
-
-
-// // MAIN RENDERING STRUCT THAT WILL BE USED
-// typedef struct s_render
-// {
-// 	t_texture	texture; // remaining this to transfer into player
-// 	t_player	player;
-// 	t_window	win; // finished with init
-// 	t_img		img; // finished with init
-// }	t_render;

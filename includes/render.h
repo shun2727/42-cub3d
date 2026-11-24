@@ -14,8 +14,7 @@
 #ifndef RENDER_H
 # define RENDER_H
 
-// TEMP
-#define MAP_SIZE 100
+# define MAP_SIZE 100
 # define WIN_WIDTH 600
 # define WIN_HEIGHT 600
 # define ESC_KEY		0xff1b
@@ -52,7 +51,16 @@ Bonus list:
 
 # include <mlx.h>
 
-//+1 because want to loop till null
+typedef enum e_texture_enum
+{
+	NO = 0,
+	SO = 1,
+	EA = 2,
+	WE = 3,
+	F = 4,
+	C = 5
+}	t_texture_enum;
+
 typedef struct s_texture
 {
 	int		floor[3]; // the 3 is referring to their RGB values
@@ -60,19 +68,20 @@ typedef struct s_texture
 	char	*wall_textures[4];
 	char	*floor_ceiling[2];
 	char	map[MAP_SIZE][MAP_SIZE + 1];
-	
 	int		player_x;
 	int		player_y;
 
 	char	dir; //NSEW
 }	t_texture;
 
-
-
 typedef struct s_player
 {
     double x;
     double y;
+    double pitch;
+    int mouse_x;
+    int mouse_y;
+    int mouse_warped;
 
     double dir_x;
     double dir_y;
@@ -89,7 +98,9 @@ typedef struct s_img
 	char	*addrs;
 	int		line_len;
 	int		bits_per_pixel;
-	int		endian; // not used
+	int		endian;
+	int		width;
+	int		height;
 } 	t_img;
 
 
@@ -105,12 +116,20 @@ typedef struct s_ray
 	double side_dist_y;
 	double delta_dist_x;
 	double delta_dist_y;
+	double camera_x;
+	double perp_wall_dist;
+	double wall_x;
 	int map_x;
 	int map_y;
 	int step_x;
 	int step_y;
 	double dir_x;
 	double dir_y;
+	int draw_start;
+	int draw_end;
+	int texture_x;
+	int texture_y;
+	int wall_texture;
 	double plane_len;
 	double plane_x;
 	double plane_y;
@@ -127,6 +146,7 @@ typedef struct s_render
 	t_ray		ray;
 	t_window	win; // finished with init
 	t_img		img; // finished with init
+	t_img		wall[4];
 }	t_render;
 
 /*
@@ -163,6 +183,25 @@ int		render(t_texture *t);
 void	put_pixel(t_render *r, int x, int y, int color);
 
 void	init_renderer_side(t_render *r, t_texture *t, char *title);
+void	init_ray(t_render *r, int x);
+void	perform_dda(t_render *r);
+void	calculate_wall_distance(t_render *r);
+void	draw_wall_column(t_render *r, int x);
+int		close_window(t_render *r);
+int		key_hook(int keycode, t_render *r);
+int		is_walkable(t_render *r, double x, double y);
+int		rgb_to_int(int rgb[3]);
+int		wall_color(t_render *r);
+int		texture_pixel(t_img *texture, int x, int y);
+int		move_forward(t_render *r);
+int		move_backward(t_render *r);
+int		move_left(t_render *r);
+int		move_right(t_render *r);
+int		rotate_left(t_render *r);
+int		rotate_right(t_render *r);
+int		rotate_by(t_render *r, double angle);
+void	adjust_pitch(t_render *r, double amount);
+int		mouse_hook(int x, int y, t_render *r);
 
 #endif
 
