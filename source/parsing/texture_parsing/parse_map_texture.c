@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_texture.c                                    :+:      :+:    :+:   */
+/*   parse_map_texture.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/11 16:55:01 by syee              #+#    #+#             */
-/*   Updated: 2026/09/11 17:05:03 by syee             ###   ########.fr       */
+/*   Updated: 2026/10/06 22:27:32 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-void	init_texture_compare(char **texture_compare)
-{
-	texture_compare[NO] = "NO ";
-	texture_compare[SO] = "SO ";
-	texture_compare[EA] = "EA ";
-	texture_compare[WE] = "WE ";
-	texture_compare[F] = "F ";
-	texture_compare[C] = "C ";
-}
 
 int	feed_texture(char *str, t_texture *texture, char **texture_compare)
 {
@@ -66,14 +56,20 @@ int	validate_texture(t_texture *texture)
 		close(file_fd);
 		i++;
 	}
-	if (assign_value(texture->floor, texture->floor_ceiling[0]) != 0 || assign_value(texture->ceiling, texture->floor_ceiling[1]) != 0)
+	if (assign_rgb_value(texture->floor, texture->floor_ceiling[0]) != 0 || assign_rgb_value(texture->ceiling, texture->floor_ceiling[1]) != 0)
 		return (ft_printf("Error: invalid RGB values\n"), 1);
 	return (0);
 }
 
-/*
-extracts and comverts the strings into int while filtering values over and under 255
-*/
+/**
+ * @brief for the RGB values, 
+ * extracts and comverts the strings into int while filtering values over and under 255
+ * 
+ * @param str 
+ * @param start 
+ * @param end 
+ * @return int 
+ */
 int	extract_int(char *str, char *start, char *end)
 {
 	int	i;
@@ -107,7 +103,7 @@ int	extract_int(char *str, char *start, char *end)
 doing it modularly by recording the start and end of fthe commas introduces more lines
 therefore it was made to a more static and hardoded approach 
 */
-int	assign_value(int arr[3], char *str)
+int	assign_rgb_value(int arr[3], char *str)
 {
 	int i;
 	char *first_comma;
@@ -130,3 +126,12 @@ int	assign_value(int arr[3], char *str)
 	return (0);
 }
 
+void	init_texture_compare(char **texture_compare)
+{
+	texture_compare[NO] = "NO ";
+	texture_compare[SO] = "SO ";
+	texture_compare[EA] = "EA ";
+	texture_compare[WE] = "WE ";
+	texture_compare[F] = "F ";
+	texture_compare[C] = "C ";
+}
