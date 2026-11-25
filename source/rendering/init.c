@@ -56,6 +56,12 @@ void	init_renderer_side(t_render *r, t_texture *t, char *title)
 	r->player.mouse_x = -1;
 	r->player.mouse_y = -1;
 	r->player.mouse_warped = 0;
+	r->controls.forward = 0;
+	r->controls.backward = 0;
+	r->controls.left = 0;
+	r->controls.right = 0;
+	r->controls.turn_left = 0;
+	r->controls.turn_right = 0;
 	direction = t->dir;
 	if (direction != 'N' && direction != 'S'
 		&& direction != 'E' && direction != 'W')

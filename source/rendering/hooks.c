@@ -12,45 +12,80 @@
 
 #include "render.h"
 
+#include <sys/time.h>
+
+static void	set_key_state(int keycode, t_render *r, int pressed)
+{
+	if (keycode == XK_w || keycode == XK_W)
+		r->controls.forward = pressed;
+	if (keycode == XK_s || keycode == XK_S)
+		r->controls.backward = pressed;
+	if (keycode == XK_a || keycode == XK_A)
+		r->controls.left = pressed;
+	if (keycode == XK_d || keycode == XK_D)
+		r->controls.right = pressed;
+	if (keycode == XK_q || keycode == XK_Q)
+		r->controls.turn_left = pressed;
+	if (keycode == XK_e || keycode == XK_E)
+		r->controls.turn_right = pressed;
+}
+
 int	close_window(t_render *r)
 {
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if (r->wall[i].ptr)
-			mlx_destroy_image(r->win.mlx, r->wall[i].ptr);
-		i++;
-	}
-	if (r->img.ptr)
-		mlx_destroy_image(r->win.mlx, r->img.ptr);
-	if (r->win.mlx_win)
-		mlx_destroy_window(r->win.mlx, r->win.mlx_win);
 	if (r->win.mlx)
-	{
 		mlx_loop_end(r->win.mlx);
-		mlx_destroy_display(r->win.mlx);
+	return (0);
+}
+
+int	key_release_hook(int keycode, t_render *r)
+{
+	set_key_state(keycode, r, 0);
+	return (0);
+}
+
+int	update_held_keys(t_render *r)
+{
+	static struct timeval	last_update;
+	static int				initialized;
+	struct timeval			now;
+	long					elapsed;
+
+	gettimeofday(&now, NULL);
+	if (!initialized)
+	{
+		last_update = now;
+		initialized = 1;
+		return (0);
 	}
+	elapsed = (now.tv_sec - last_update.tv_sec) * 1000000L
+		+ now.tv_usec - last_update.tv_usec;
+	if (elapsed < 40000)
+		return (0);
+	last_update = now;
+	if (r->controls.forward)
+		move_forward(r);
+	if (r->controls.backward)
+		move_backward(r);
+	if (r->controls.left)
+		move_left(r);
+	if (r->controls.right)
+		move_right(r);
+	if (r->controls.turn_left)
+		rotate_by(r, -0.1);
+	if (r->controls.turn_right)
+		rotate_by(r, 0.1);
 	return (0);
 }
 
 int	key_hook(int keycode, t_render *r)
 {
+	set_key_state(keycode, r, 1);
 	if (keycode == ESC_KEY)
 		close_window(r);
-	if (keycode == XK_w)
-		move_forward(r);
-	if (keycode == XK_s)
-		move_backward(r);
-	if (keycode == XK_a)
-		move_left(r);
-	if (keycode == XK_d)
-		move_right(r);
 	if (keycode == 0xff51) // mouse
-		rotate_by(r, -10.9);
+		rotate_by(r, -0.1);
 	if (keycode == 0xff53) // mouse 
-		rotate_by(r, 10.9);
+		rotate_by(r, 0.1);
 	if (keycode == XK_Up)
 		adjust_pitch(r, 20);
 	if (keycode == XK_Down)

@@ -110,6 +110,16 @@ typedef struct s_window
 	void	*mlx_win;
 }	t_window;
 
+typedef struct s_controls
+{
+	int	forward;
+	int	backward;
+	int	left;
+	int	right;
+	int	turn_left;
+	int	turn_right;
+}	t_controls;
+
 typedef struct s_ray
 {
 	double side_dist_x;
@@ -143,6 +153,7 @@ typedef struct s_render
 {
 	t_texture	texture; // remaining this to transfer into player
 	t_player	player;
+	t_controls	controls;
 	t_ray		ray;
 	t_window	win; // finished with init
 	t_img		img; // finished with init
@@ -189,6 +200,8 @@ void	calculate_wall_distance(t_render *r);
 void	draw_wall_column(t_render *r, int x);
 int		close_window(t_render *r);
 int		key_hook(int keycode, t_render *r);
+int		key_release_hook(int keycode, t_render *r);
+int		update_held_keys(t_render *r);
 int		is_walkable(t_render *r, double x, double y);
 int		rgb_to_int(int rgb[3]);
 int		wall_color(t_render *r);

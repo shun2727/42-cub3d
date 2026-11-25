@@ -19,14 +19,20 @@ SRC =	test.c \
 	colors.c
 
 OBJS = $(SRC:%.c=%.o)
+TEST_NAME = renderer_tests
+TEST_SRC = renderer_tests.c
+TEST_COMPONENTS = shoot_rays.c movement.c colors.c put_pixel.c
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(OBJS) $(LIBFT) $(NAME_FLAGS) -o $(NAME)
 
-test: $(LIBFT) main.o
-	$(CC) main.o $(LIBFT) $(NAME_FLAGS) -o test
+test: $(TEST_NAME)
+	./$(TEST_NAME)
+
+$(TEST_NAME): $(TEST_SRC) $(TEST_COMPONENTS)
+	$(CC) $(OBJ_FLAGS) $(TEST_SRC) $(TEST_COMPONENTS) $(LIB_PATH)/libft.a -I/usr/include -I../../Libft -I../../includes -L/usr/lib -lXext -lX11 -lm -lz -o $(TEST_NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIB_PATH)
@@ -39,6 +45,7 @@ bonus: $(BONUSES:.c=.o)
 
 clean:
 	$(RM) $(OBJS)
+	$(RM) $(TEST_NAME)
 	$(MAKE) -C $(LIB_PATH) clean
 
 fclean: clean
