@@ -6,7 +6,7 @@
 /*   By: syee <syee@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 20:43:27 by syee              #+#    #+#             */
-/*   Updated: 2026/09/22 22:49:23 by syee             ###   ########.fr       */
+/*   Updated: 2026/11/27 19:24:53 by syee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_blank_line(char *str)
 {
-    if (!str)
-        return (false);
-    return (ft_strlen(str) == 1 && str[0] == '\n');
+	if (!str)
+		return (false);
+	return (ft_strlen(str) == 1 && str[0] == '\n');
 }
